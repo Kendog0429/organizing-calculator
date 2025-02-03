@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Citizen Action of New York Organizing Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>Citizen Action of New York Organizing Calculator</h1>
-  
+  <header>
+    <h1>Citizen Action of New York Organizing Calculator</h1>
+    <p class="subtitle">Plan Your Outreach and Impact</p>
+  </header>
+
   <div class="instructions">
-    <p><strong>Instructions:</strong> Please enter the total number of people you want to contact.</p>
+    <p><strong>Instructions:</strong> Please enter the total number of people you want to contact for your outreach campaign. We’ll help you determine how to organize it.</p>
   </div>
 
   <div class="input-container">
@@ -19,8 +22,8 @@
     <input type="number" id="contactGoal" placeholder="Enter number of people (e.g., 1000)" required>
   </div>
 
-  <button id="nextButton">Next</button>
+  <button id="nextButton" class="action-button">Next</button>
 
-  <script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

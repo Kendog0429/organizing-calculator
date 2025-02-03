@@ -1,68 +1,84 @@
+/* General styles */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
+    background-color: #f1f1f1;
     color: #333;
+    font-size: 18px;
+}
+
+header {
+    background-color: #0077B6;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.subtitle {
+    font-size: 24px;
+    font-weight: 300;
+    margin-top: 10px;
 }
 
 h1 {
-    text-align: center;
-    padding: 20px;
-    background-color: #0066cc;
-    color: white;
+    font-size: 36px;
 }
 
-.instructions {
-    text-align: center;
-    margin: 20px;
-    font-size: 1.2em;
-}
-
-.input-container {
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-label {
-    font-size: 1.2em;
-    margin-bottom: 5px;
-}
-
-input, select {
-    font-size: 1em;
+input, select, button {
+    font-size: 18px;
     padding: 10px;
-    width: 80%;
-    max-width: 300px;
-    margin-bottom: 20px;
+    margin: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-button {
-    padding: 15px 25px;
-    font-size: 1.2em;
-    background-color: #0066cc;
+input[type="number"], select {
+    width: 80%;
+}
+
+input[type="checkbox"] {
+    width: auto;
+}
+
+button.action-button {
+    background-color: #00B4D8;
     color: white;
     border: none;
     cursor: pointer;
-    width: 100%;
-    max-width: 300px;
-    margin: 20px auto;
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 5px;
+    width: 80%;
 }
 
-button:hover {
-    background-color: #0055a0;
+button.action-button:hover {
+    background-color: #009ABF;
 }
 
-.checkbox-container {
-    text-align: center;
+input:focus, select:focus {
+    outline: 3px solid #0077B6;
 }
 
-#outreachPlanResult {
-    text-align: center;
-    padding: 30px;
-    font-size: 1.5em;
-    background-color: #e0f7fa;
-    margin-top: 30px;
+h3 {
+    font-size: 24px;
+    color: #333;
+}
+
+#contactRates ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#contactRates li {
+    margin-bottom: 10px;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+    background-color: #e5e5e5;
+    padding: 20px;
+    border-radius: 5px;
 }
