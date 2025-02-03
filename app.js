@@ -22,7 +22,7 @@ function calculateOutreach() {
         contactRate = 15;  // Canvassing
         contactRateInput.value = contactRate;  // Update the field with the correct rate
     } else if (contactMethod === "tabling") {
-        contactRate = 5;  // Tabling
+        contactRate = 25;  // Tabling
         contactRateInput.value = contactRate;  // Update the field with the correct rate
     } else if (contactMethod === "streetCanvassing") {
         contactRate = 10;  // Street Canvassing

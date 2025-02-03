@@ -1,69 +1,104 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #f4f4f9;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 100vh;
+    color: #333;
+}
+
+/* Header Section */
+header {
+    text-align: center;
+    margin: 20px 0;
+}
+
+header .logo {
+    width: 150px;
+    margin-bottom: 15px;
 }
 
 h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #2c3e50;
 }
 
+/* Instructions Section */
 .instructions {
     font-size: 18px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
     padding: 0 20px;
 }
 
+/* Form and Input Styles */
 .input-container {
-    margin-bottom: 15px;
-}
-
-.input-container label {
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-.input-container input, .input-container select {
-    font-size: 16px;
-    padding: 8px;
-    width: 300px;
-    margin-bottom: 10px;
-}
-
-button {
-    font-size: 18px;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-.contact-rates {
-    background-color: #e0f7fa;
-    padding: 15px;
-    margin: 20px 0;
-    border-radius: 8px;
+    margin-bottom: 20px;
     width: 90%;
     max-width: 500px;
 }
 
+.input-container label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input-container input, .input-container select {
+    font-size: 18px;
+    padding: 12px;
+    width: 100%;
+    margin-top: 5px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Button Styles */
+button {
+    font-size: 20px;
+    padding: 12px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #2ecc71;
+}
+
+/* Contact Rates Box */
+.contact-rates {
+    background-color: #eafaf1;
+    padding: 20px;
+    margin: 40px 0;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
+
 .contact-rates h3 {
+    font-size: 22px;
     margin-bottom: 10px;
-    font-size: 24px;
 }
 
 .contact-rates ul {
@@ -73,16 +108,17 @@ button:hover {
 
 .contact-rates li {
     font-size: 18px;
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
+/* Result Section */
 .result {
     margin-top: 30px;
-    font-size: 20px;
+    font-size: 22px;
     padding: 15px;
     background-color: #f1f1f1;
     border-radius: 8px;
     width: 90%;
     max-width: 500px;
-    display: none; /* Hide by default */
+    display: none;
 }
