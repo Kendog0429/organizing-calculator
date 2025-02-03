@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizing Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Organizing Calculator</h1>
+        <p>Let's create your organizing plan!</p>
+        
+        <!-- Step 1: Input number of people needed -->
+        <div id="step-1">
+            <h2>Step 1: How many people do you need to organize?</h2>
+            <input type="number" id="peopleNeeded" placeholder="e.g., 10" min="1" required>
+            <button id="next-step-1">Next</button>
+        </div>
+
+        <!-- Step 2: Input contact rate and flake factor -->
+        <div id="step-2" style="display:none;">
+            <h2>Step 2: Provide Contact Rate and Flake Factor</h2>
+            <label for="contactRate">Contact Rate (0-1):</label>
+            <input type="number" id="contactRate" step="0.01" min="0" max="1" placeholder="e.g., 0.1" required>
+            <label for="flakeFactor">Flake Factor (0-1):</label>
+            <input type="number" id="flakeFactor" step="0.01" min="0" max="1" placeholder="e.g., 0.5" required>
+            <button id="generatePlan">Generate Plan</button>
+        </div>
+
+        <!-- Result Output -->
+        <div id="result" style="display:none;">
+            <h2>Your Organizing Plan</h2>
+            <p id="contactPlan"></p>
+            <p id="doorPlan"></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
