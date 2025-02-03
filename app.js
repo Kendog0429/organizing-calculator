@@ -1,42 +1,52 @@
-function calculateOutreach() {
-    const contactGoal = parseInt(localStorage.getItem('contactGoal'));
+// Page 1: Save contact goal in localStorage
+document.getElementById('nextButton').addEventListener('click', function() {
+    const contactGoal = document.getElementById('contactGoal').value;
+    if (contactGoal) {
+        localStorage.setItem('contactGoal', contactGoal);
+        window.location.href = 'page2.html';  // Redirect to page 2
+    } else {
+        alert('Please enter a contact goal!');
+    }
+});
+
+// Page 2: Save contact method and rate, redirect to the next page
+document.getElementById('doneButton').addEventListener('click', function() {
+    const contactMethod = document.getElementById('contactMethod').value;
+    const contactRate = document.getElementById('contactRate').value;
+    
+    if (contactMethod && contactRate) {
+        localStorage.setItem('contactMethod', contactMethod);
+        localStorage.setItem('contactRate', contactRate);
+        const outreachPlanChecked = document.getElementById('outreachPlan').checked;
+        localStorage.setItem('outreachPlanChecked', outreachPlanChecked);
+        window.location.href = 'page3.html';  // Redirect to page 3
+    } else {
+        alert('Please select a contact method and rate!');
+    }
+});
+
+// Page 3: Generate the outreach plan based on the stored data
+document.addEventListener('DOMContentLoaded', function() {
+    const contactGoal = localStorage.getItem('contactGoal');
     const contactMethod = localStorage.getItem('contactMethod');
-    const contactRate = parseInt(localStorage.getItem('contactRate'));
-    const flakeFactor = 50; // Assuming default flake factor as 50%
-  
-    if (!contactGoal || !contactMethod || !contactRate) {
-      alert("Please complete all fields.");
-      return;
+    const contactRate = localStorage.getItem('contactRate');
+    const outreachPlanChecked = localStorage.getItem('outreachPlanChecked') === 'true';
+
+    if (contactGoal && contactMethod && contactRate) {
+        let resultText = `You need to contact ${contactGoal} people using ${contactMethod} with a ${contactRate}% contact rate.<br>`;
+
+        if (outreachPlanChecked) {
+            // Calculate the outreach plan (simplified example)
+            const adjustedGoal = contactGoal / (contactRate / 100);
+            const peopleToAsk = adjustedGoal / (1 - 0.5);  // Assuming 50% flake factor
+
+            resultText += `You will need to reach out to approximately ${Math.round(peopleToAsk)} people in total.<br>`;
+        } else {
+            resultText += 'No outreach plan was created.<br>';
+        }
+
+        document.getElementById('outreachPlanResult').innerHTML = resultText;
+    } else {
+        document.getElementById('outreachPlanResult').innerHTML = 'Error: Missing data.';
     }
-  
-    // Calculate adjusted goal and people to ask
-    const adjustedGoal = contactGoal / (contactRate / 100);
-    const peopleToAsk = adjustedGoal / (1 - flakeFactor / 100);
-  
-    let resultText = `<strong>For ${contactGoal} people:</strong><br>
-      - You need to contact approximately ${Math.round(adjustedGoal)} people.<br>
-      - To account for a 50% flake factor, you need to ask ${Math.round(peopleToAsk)} people.<br>`;
-  
-    if (contactMethod === "phone") {
-      const phonebanks = Math.ceil(peopleToAsk / 100);
-      resultText += `You will need about ${phonebanks} phonebank(s).`;
-    } else if (contactMethod === "canvassing") {
-      const shifts = Math.ceil(peopleToAsk / 20);
-      resultText += `You will need about ${shifts} canvassing shift(s).`;
-    } else if (contactMethod === "tabling") {
-      const tables = Math.ceil(peopleToAsk / 50);
-      resultText += `You will need about ${tables} tabling session(s).`;
-    } else if (contactMethod === "streetCanvassing") {
-      const streetShifts = Math.ceil(peopleToAsk / 30);
-      resultText += `You will need about ${streetShifts} street canvassing shift(s).`;
-    }
-  
-    if (localStorage.getItem('outreachPlan') === "true") {
-      // Additional breakdown or outreach plan logic
-      resultText += `<h3>Outreach Plan Over the Next Two Weeks (disclaimer: this is an estimate)</h3>`;
-      resultText += `<p>Assuming you want to complete this in two weeks, here's an approximate breakdown...</p>`;
-    }
-  
-    document.getElementById("result").innerHTML = resultText;
-  }
-  
+});

@@ -1,56 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Citizen Action of New York Organizing Calculator</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Action of New York Organizing Calculator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <img src="logo.png" alt="Citizen Action Logo" class="logo">
-      <h1>Citizen Action of New York Organizing Calculator</h1>
-    </header>
 
-    <div class="form-container">
-      <h2>Step 2: Choose a contact method and enter the contact rate</h2>
-      <p>Please select one of the contact methods below and enter the expected contact rate for that method.</p>
-
-      <select id="contactMethod">
-        <option value="phone">Phonebanking (VPB): 8%</option>
-        <option value="canvassing">Canvassing: 15%</option>
-        <option value="tabling">Tabling: 25%</option>
-        <option value="streetCanvassing">Street Canvassing: 10%</option>
-      </select>
-
-      <input type="number" id="contactRate" placeholder="Enter contact rate (%)" required>
-
-      <label for="outreachPlan">
-        <input type="checkbox" id="outreachPlan">
-        Make an outreach plan for me
-      </label>
-
-      <button class="main-btn" onclick="submitData()">Done!</button>
-    </div>
+  <h1>Citizen Action of New York Organizing Calculator</h1>
+  
+  <div class="instructions">
+    <p><strong>Step 2:</strong> Choose the contact method and set the contact rate for that method.</p>
   </div>
 
-  <script>
-    function submitData() {
-      const contactMethod = document.getElementById('contactMethod').value;
-      const contactRate = document.getElementById('contactRate').value;
-      const outreachPlan = document.getElementById('outreachPlan').checked;
+  <div class="input-container">
+    <label for="contactMethod">Choose a contact method:</label>
+    <select id="contactMethod">
+      <option value="phone">Phonebanking (VPB)</option>
+      <option value="canvassing">Canvassing</option>
+      <option value="tabling">Tabling</option>
+      <option value="streetCanvassing">Street Canvassing</option>
+    </select>
+  </div>
 
-      if (contactRate) {
-        localStorage.setItem('contactMethod', contactMethod);
-        localStorage.setItem('contactRate', contactRate);
-        localStorage.setItem('outreachPlan', outreachPlan);
+  <div class="input-container">
+    <label for="contactRate">Enter the contact rate (%)</label>
+    <input type="number" id="contactRate" placeholder="e.g., 8 for 8%" required>
+  </div>
 
-        window.location.href = 'outreachPlan.html';
-      } else {
-        alert('Please enter the contact rate.');
-      }
-    }
-  </script>
+  <button id="doneButton">Done!</button>
+
+  <div class="checkbox-container">
+    <label for="outreachPlan">
+      <input type="checkbox" id="outreachPlan"> Make an outreach plan for me
+    </label>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,98 +1,68 @@
-/* General Styles */
-* {
+body {
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Arial', sans-serif;
     background-color: #f4f4f9;
     color: #333;
+}
+
+h1 {
+    text-align: center;
     padding: 20px;
-  }
-  
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  header {
+    background-color: #0066cc;
+    color: white;
+}
+
+.instructions {
     text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  header .logo {
-    max-width: 180px;
-    margin-bottom: 20px;
-  }
-  
-  h1 {
-    font-size: 40px;
-    color: #2e3b4e;
-    margin-bottom: 20px;
-  }
-  
-  h2 {
-    font-size: 30px;
-    margin-bottom: 20px;
-    color: #4f5b62;
-  }
-  
-  h3 {
-    font-size: 26px;
-    margin-top: 30px;
-  }
-  
-  .form-container, .result-container {
-    text-align: center;
-  }
-  
-  input[type="number"], select {
+    margin: 20px;
+    font-size: 1.2em;
+}
+
+.input-container {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+input, select {
+    font-size: 1em;
+    padding: 10px;
     width: 80%;
-    padding: 15px;
-    margin: 20px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 18px;
-  }
-  
-  button.main-btn {
-    padding: 15px 40px;
-    background-color: #006fbb;
-    color: #fff;
-    font-size: 20px;
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 1.2em;
+    background-color: #0066cc;
+    color: white;
     border: none;
-    border-radius: 8px;
     cursor: pointer;
-    margin: 20px 0;
-  }
-  
-  button.main-btn:hover {
-    background-color: #005f99;
-  }
-  
-  label {
-    font-size: 20px;
-    margin-top: 10px;
-    display: block;
-  }
-  
-  #result {
-    font-size: 22px;
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #e6f4ff;
-    border-radius: 8px;
-    border: 1px solid #b3d1e0;
-  }
-  
-  #result strong {
-    font-size: 24px;
-    color: #005f99;
-  }
-  
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+button:hover {
+    background-color: #0055a0;
+}
+
+.checkbox-container {
+    text-align: center;
+}
+
+#outreachPlanResult {
+    text-align: center;
+    padding: 30px;
+    font-size: 1.5em;
+    background-color: #e0f7fa;
+    margin-top: 30px;
+}
