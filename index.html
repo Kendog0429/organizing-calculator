@@ -1,44 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organizing Calculator</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organizing Calculator</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <div class="container">
-        <h1>Organizing Calculator</h1>
-        <p>Let's create your organizing plan!</p>
-        
-        <!-- Step 1: Input number of people needed -->
-        <div id="step-1">
-            <h2>Step 1: How many people do you need to organize?</h2>
-            <input type="number" id="peopleNeeded" placeholder="e.g., 10" min="1" required>
-            <button id="next-step-1">Next</button>
-        </div>
 
-        <!-- Step 2: Input contact rate and flake factor -->
-        <div id="step-2" style="display:none;">
-            <h2>Step 2: Provide Contact Rate and Flake Factor</h2>
-            <label for="contactRate">Contact Rate (0-1):</label>
-            <input type="number" id="contactRate" step="0.01" min="0" max="1" placeholder="e.g., 0.1" required>
-            <label for="flakeFactor">Flake Factor (0-1):</label>
-            <input type="number" id="flakeFactor" step="0.01" min="0" max="1" placeholder="e.g., 0.5" required>
-            <button id="generatePlan">Generate Plan</button>
-        </div>
+  <h1>Organizing Calculator</h1>
 
-        <!-- Result Output -->
-        <div id="result" style="display:none;">
-            <h2>Your Organizing Plan</h2>
-            <p id="contactPlan"></p>
-            <p id="doorPlan"></p>
-        </div>
-    </div>
+  <div class="instructions">
+    <p><strong>Instructions:</strong> This tool helps you calculate how many people you need to contact to achieve your organizing goals. Enter your required number of contacts and the contact method, and the tool will show you the estimated number of outreach actions (e.g., phonebanks, canvassing shifts) required, considering a "flake factor" for no-shows.</p>
+    <p><strong>Steps:</strong> 
+      <ol>
+        <li>Enter how many people you need to contact.</li>
+        <li>Select your preferred contact method (e.g., phonebanking or canvassing).</li>
+        <li>Input the expected contact rate (percentage of people reached).</li>
+        <li>Set the "flake factor" (percentage of people who will not show up).</li>
+        <li>Click "Calculate" to generate your outreach plan.</li>
+      </ol>
+    </p>
+  </div>
 
-    <script src="app.js"></script>
+  <div class="input-container">
+    <label for="contactGoal">How many people do you need to contact?</label>
+    <input type="number" id="contactGoal" placeholder="Enter number of people (e.g., 1000)" required>
+  </div>
+
+  <div class="input-container">
+    <label for="contactMethod">Choose a contact method:</label>
+    <select id="contactMethod">
+      <option value="phone">Phonebanking (VPB)</option>
+      <option value="canvassing">Canvassing</option>
+      <option value="other">Other</option>
+    </select>
+  </div>
+
+  <div class="input-container">
+    <label for="contactRate">Enter the contact rate (%)</label>
+    <input type="number" id="contactRate" placeholder="e.g., 8 for 8%" required>
+  </div>
+
+  <div class="input-container">
+    <label for="flakeFactor">Enter the flake factor (%)</label>
+    <input type="number" id="flakeFactor" placeholder="e.g., 50 for 50%" required>
+  </div>
+
+  <button onclick="calculateOutreach()">Calculate Plan</button>
+
+  <h3>Outreach Plan:</h3>
+  <div id="result" class="result"></div>
+
+  <script src="script.js"></script>
 </body>
-
 </html>
