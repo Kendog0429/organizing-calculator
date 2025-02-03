@@ -31,11 +31,12 @@ function calculateOutreach() {
       resultText += `You will need about ${streetShifts} street canvassing shift(s).`;
     }
   
-    document.getElementById("result").innerHTML = resultText;
-  
-    // Handle outreach plan if checked
     if (localStorage.getItem('outreachPlan') === "true") {
-      // Here you can add further breakdown logic for multiple contact methods, if required
+      // Additional breakdown or outreach plan logic
+      resultText += `<h3>Outreach Plan Over the Next Two Weeks (disclaimer: this is an estimate)</h3>`;
+      resultText += `<p>Assuming you want to complete this in two weeks, here's an approximate breakdown...</p>`;
     }
+  
+    document.getElementById("result").innerHTML = resultText;
   }
   
