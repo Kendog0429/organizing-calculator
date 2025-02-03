@@ -1,84 +1,65 @@
-/* General styles */
+/* Global Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
     margin: 0;
     padding: 0;
-    background-color: #f1f1f1;
-    color: #333;
-    font-size: 18px;
-}
-
-header {
-    background-color: #0077B6;
+  }
+  
+  header {
+    background-color: #c72c41; /* Red background */
     color: white;
+    padding: 20px;
     text-align: center;
-    padding: 20px 0;
-}
-
-.subtitle {
-    font-size: 24px;
-    font-weight: 300;
-    margin-top: 10px;
-}
-
-h1 {
-    font-size: 36px;
-}
-
-input, select, button {
-    font-size: 18px;
+  }
+  
+  .container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  h1, h2, p {
+    font-size: 1.5rem; /* Larger font size for better readability */
+  }
+  
+  h2 {
+    font-size: 2rem;
+    color: #c72c41; /* Red color */
+  }
+  
+  input[type="number"], select, button {
+    font-size: 1.2rem;
     padding: 10px;
     margin: 10px 0;
     width: 100%;
-    box-sizing: border-box;
-}
-
-input[type="number"], select {
-    width: 80%;
-}
-
-input[type="checkbox"] {
-    width: auto;
-}
-
-button.action-button {
-    background-color: #00B4D8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  button {
+    background-color: #c72c41;
     color: white;
-    border: none;
     cursor: pointer;
-    padding: 15px 30px;
-    font-size: 20px;
-    border-radius: 5px;
-    width: 80%;
-}
-
-button.action-button:hover {
-    background-color: #009ABF;
-}
-
-input:focus, select:focus {
-    outline: 3px solid #0077B6;
-}
-
-h3 {
-    font-size: 24px;
-    color: #333;
-}
-
-#contactRates ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-#contactRates li {
-    margin-bottom: 10px;
-}
-
-#result {
+    font-size: 1.5rem;
+    border: none;
+  }
+  
+  button:hover {
+    background-color: #a32736; /* Darker red */
+  }
+  
+  .page {
+    display: none;
+  }
+  
+  #result {
+    font-size: 1.5rem;
     margin-top: 20px;
-    font-size: 18px;
-    color: #333;
-    background-color: #e5e5e5;
-    padding: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
     border-radius: 5px;
-}
+  }
+  

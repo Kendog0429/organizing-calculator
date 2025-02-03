@@ -1,71 +1,65 @@
-// Code for index.html (First Page)
-document.addEventListener('DOMContentLoaded', function() {
-    const nextButton = document.getElementById('nextButton');
+// Handle the first page - Enter total number of people
+let totalPeople = 0; // This will store the number of people to contact
+const flakeFactor = 50; // Fixed flake factor (50%) — assumed
 
-    nextButton.addEventListener('click', function() {
-        const contactGoal = document.getElementById('contactGoal').value;
-        
-        if (contactGoal) {
-            // Save data to localStorage for use on the second page
-            localStorage.setItem('contactGoal', contactGoal);
+function startCalculator() {
+  const peopleInput = document.getElementById("totalPeopleInput").value;
 
-            // Redirect to the second page
-            window.location.href = 'contactMethod.html';  
-        } else {
-            alert('Please enter a contact goal!');
-        }
-    });
-});
+  if (!peopleInput || peopleInput <= 0) {
+    alert("Please enter a valid number of people to contact.");
+    return;
+  }
 
-// Code for contactMethod.html (Second Page)
-document.addEventListener('DOMContentLoaded', function() {
-    // Retrieve contact goal from localStorage
-    const contactGoal = localStorage.getItem('contactGoal');
-    if (!contactGoal) {
-        alert('Please go back to the first page to enter the total number of people.');
-        window.location.href = 'index.html';  // Redirect back if goal is not set
-    }
+  totalPeople = parseInt(peopleInput);
+  document.getElementById("firstPage").style.display = "none";
+  document.getElementById("secondPage").style.display = "block";
+}
 
-    document.getElementById('contactGoal').innerHTML = contactGoal;
+// Handle the second page - Select contact method and generate the plan
+function generatePlan() {
+  const contactMethod = document.getElementById("contactMethod").value;
 
-    const doneButton = document.getElementById('doneButton');
-    doneButton.addEventListener('click', function() {
-        const contactMethod = document.getElementById('contactMethod').value;
-        const contactRate = parseInt(document.getElementById('contactRate').value);
-        const flakeFactor = parseInt(document.getElementById('flakeFactor').value);
-        const generatePlan = document.getElementById('generatePlan').checked;
+  // Automatically set the contact rate based on the selected method
+  let contactRate = 0;
+  if (contactMethod === "phone") {
+    contactRate = 8;  // Phonebanking (VPB)
+  } else if (contactMethod === "canvassing") {
+    contactRate = 15;  // Canvassing
+  } else if (contactMethod === "tabling") {
+    contactRate = 25;  // Tabling
+  } else if (contactMethod === "streetCanvassing") {
+    contactRate = 10;  // Street Canvassing
+  }
 
-        if (contactMethod && contactRate && flakeFactor) {
-            // Calculate outreach
-            const adjustedGoal = contactGoal / (contactRate / 100);
-            const peopleToAsk = adjustedGoal / (1 - flakeFactor / 100);
+  // Calculate the number of people to contact based on the contact rate and the flake factor
+  const adjustedGoal = totalPeople / (contactRate / 100);
+  const peopleToAsk = adjustedGoal / (1 - flakeFactor / 100);  // 50% flake factor
 
-            let resultText = `<strong>For ${contactGoal} people:</strong><br>
-                              - You need to contact approximately ${Math.round(adjustedGoal)} people.<br>
-                              - To account for a ${flakeFactor}% flake factor, you need to ask ${Math.round(peopleToAsk)} people.<br>`;
+  let resultText = `
+    <strong>Outreach Plan:</strong><br>
+    - You need to contact approximately ${Math.round(adjustedGoal)} people.<br>
+    - Considering a ${flakeFactor}% flake factor, you need to ask ${Math.round(peopleToAsk)} people.<br>
+  `;
 
-            // If generate plan is checked, show the outreach plan
-            if (generatePlan) {
-                if (contactMethod === "phone") {
-                    const phonebanks = Math.ceil(peopleToAsk / 100);
-                    resultText += `You will need about ${phonebanks} phonebank(s).`;
-                } else if (contactMethod === "canvassing") {
-                    const shifts = Math.ceil(peopleToAsk / 20);
-                    resultText += `You will need about ${shifts} canvassing shift(s).`;
-                } else if (contactMethod === "tabling") {
-                    const tables = Math.ceil(peopleToAsk / 50);
-                    resultText += `You will need about ${tables} tabling session(s).`;
-                } else if (contactMethod === "streetCanvassing") {
-                    const streetShifts = Math.ceil(peopleToAsk / 30);
-                    resultText += `You will need about ${streetShifts} street canvassing shift(s).`;
-                }
-            }
+  // Calculate outreach actions based on the selected contact method
+  if (contactMethod === "phone") {
+    const phonebanks = Math.ceil(peopleToAsk / 100); // 100 people per phonebank
+    resultText += `You will need about ${phonebanks} phonebank(s).`;
+  } else if (contactMethod === "canvassing") {
+    const shifts = Math.ceil(peopleToAsk / 20); // 20 doors per canvassing shift
+    resultText += `You will need about ${shifts} canvassing shift(s).`;
+  } else if (contactMethod === "tabling") {
+    const tables = Math.ceil(peopleToAsk / 50); // 50 people per table
+    resultText += `You will need about ${tables} tabling session(s).`;
+  } else if (contactMethod === "streetCanvassing") {
+    const streetShifts = Math.ceil(peopleToAsk / 30); // 30 people per street canvassing shift
+    resultText += `You will need about ${streetShifts} street canvassing shift(s).`;
+  }
 
-            // Display result
-            document.getElementById('result').innerHTML = resultText;
-
-        } else {
-            alert('Please fill in all fields!');
-        }
-    });
-});
+  // If the "Create an outreach plan" checkbox is checked, show the result
+  if (document.getElementById("generatePlanCheckbox").checked) {
+    document.getElementById("result").innerHTML = resultText;
+  } else {
+    document.getElementById("result").innerHTML = "<p>Please check the box to generate an outreach plan.</p>";
+  }
+}

@@ -1,28 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Citizen Action of New York Organizing Calculator</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citizen Action of New York Organizing Calculator</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <header>
     <h1>Citizen Action of New York Organizing Calculator</h1>
-    <p class="subtitle">Plan Your Outreach and Impact</p>
   </header>
 
-  <div class="instructions">
-    <p><strong>Instructions:</strong> Please enter the total number of people you want to contact for your outreach campaign. We’ll help you determine how to organize it.</p>
-  </div>
+  <div class="container">
+    <!-- First page (Enter Total Number of People) -->
+    <div id="firstPage" class="page">
+      <h2>Welcome! Let's start planning your outreach.</h2>
+      <p><strong>Step 1:</strong> Enter the total number of people you want to contact.</p>
+      <input type="number" id="totalPeopleInput" placeholder="Enter number of people (e.g., 1000)" required>
+      <button onclick="startCalculator()">Next</button>
+    </div>
 
-  <div class="input-container">
-    <label for="contactGoal">How many people do you need to contact?</label>
-    <input type="number" id="contactGoal" placeholder="Enter number of people (e.g., 1000)" required>
-  </div>
+    <!-- Second page (Choose Contact Method and Generate Plan) -->
+    <div id="secondPage" class="page" style="display:none;">
+      <h2>Step 2: Choose your contact method and see your plan!</h2>
+      <p>Choose the method you will use to contact people:</p>
+      <select id="contactMethod">
+        <option value="phone">Phonebanking (VPB)</option>
+        <option value="canvassing">Canvassing</option>
+        <option value="tabling">Tabling</option>
+        <option value="streetCanvassing">Street Canvassing</option>
+      </select>
 
-  <button id="nextButton" class="action-button">Next</button>
+      <button onclick="generatePlan()">Done!</button>
+
+      <label for="generatePlanCheckbox">
+        <input type="checkbox" id="generatePlanCheckbox"> Create an outreach plan
+      </label>
+
+      <div id="result"></div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>

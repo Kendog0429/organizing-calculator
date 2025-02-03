@@ -1,15 +1,16 @@
 # Citizen Action of New York Organizing Calculator
 
-This tool helps plan outreach efforts by calculating how many people you need to contact for your organizing goals.
+This tool helps organizers estimate how many people they need to contact and how to reach them through various contact methods (phonebanking, canvassing, tabling, or street canvassing). It factors in a 50% no-show (flake) rate for all outreach efforts, helping you create an effective outreach plan to meet your goals.
 
-## How It Works
-1. **Step 1:** Enter the total number of people you need to contact.
-2. **Step 2:** Choose your preferred contact method and provide the contact rate.
-3. **Step 3:** The tool will generate an outreach plan based on your input.
+## Features
 
-## Files:
-- `index.html`: The first page where users input the total number of people to contact.
-- `contactMethod.html`: The second page where users select a contact method and provide the contact rate.
-- `outreachPlan.html`: Displays the outreach plan breakdown.
-- `style.css`: Styling for the app.
-- `app.js`: JavaScript functionality for handling calculations and page navigation.
+- **Estimates turnout**: Given a number of people to contact, it calculates the number of people you need to ask to ensure enough show up (considering a 50% no-show rate).
+- **Multiple outreach methods**: Choose from different methods such as phonebanking, canvassing, tabling, and street canvassing. Each method has its own contact rate.
+- **Creates a detailed outreach plan**: Based on your inputs, the tool suggests how many phonebanks, canvassing shifts, tabling sessions, or street canvassing shifts you’ll need to meet your goal.
+- **User-friendly interface**: Simple steps with clear guidance on how to enter your data.
+
+## Installation
+
+1. **Clone or Download**: Clone this repository to your local machine or download the ZIP file and extract it.
+   ```bash
+   git clone https://github.com/kendog0429/organizing-calculator.git
