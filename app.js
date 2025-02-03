@@ -1,37 +1,55 @@
 function calculateOutreach() {
+    // Get the user inputs
     const contactGoal = parseInt(document.getElementById("contactGoal").value);
     const contactMethod = document.getElementById("contactMethod").value;
-    const contactRate = parseInt(document.getElementById("contactRate").value);
+    const contactRateInput = document.getElementById("contactRate");
     const flakeFactor = parseInt(document.getElementById("flakeFactor").value);
   
-    // Validation for inputs
-    if (isNaN(contactGoal) || isNaN(contactRate) || isNaN(flakeFactor)) {
-      alert("Please fill in all fields with valid numbers.");
-      return;
+    // Default contact rate
+    let contactRate = parseInt(contactRateInput.value);
+  
+    // Set the contact rate automatically based on selected method
+    if (contactMethod === "phone") {
+      contactRate = 8;  // Phonebanking (VPB)
+      contactRateInput.value = contactRate;  // Update the field with the correct rate
+    } else if (contactMethod === "canvassing") {
+      contactRate = 15;  // Canvassing
+      contactRateInput.value = contactRate;  // Update the field with the correct rate
+    } else if (contactMethod === "tabling") {
+      contactRate = 5;  // Tabling
+      contactRateInput.value = contactRate;  // Update the field with the correct rate
+    } else if (contactMethod === "streetCanvassing") {
+      contactRate = 10;  // Street Canvassing
+      contactRateInput.value = contactRate;  // Update the field with the correct rate
     }
   
-    // Calculate the number of people needed to be contacted to achieve the goal
-    let conversations = (contactGoal * contactRate) / 100;
-    let adjustedGoal = conversations / (1 - flakeFactor / 100);
+    // Calculate how many people need to be contacted
+    const adjustedGoal = contactGoal / (contactRate / 100);
+    
+    // Calculate the number of people to ask considering the flake factor
+    const peopleToAsk = adjustedGoal / (1 - flakeFactor / 100);
+  
+    // Calculate the outreach actions
+    let resultText = `<strong>For ${contactGoal} people:</strong><br>
+    - You need to contact approximately ${Math.round(adjustedGoal)} people.<br>
+    - To account for a ${flakeFactor}% flake factor, you need to ask ${Math.round(peopleToAsk)} people.<br>`;
+  
+    // Calculate outreach actions (phonebanks, canvassing shifts, etc.)
+    if (contactMethod === "phone") {
+      const phonebanks = Math.ceil(peopleToAsk / 100); // Assume 100 people per phonebank
+      resultText += `You will need about ${phonebanks} phonebank(s).`;
+    } else if (contactMethod === "canvassing") {
+      const shifts = Math.ceil(peopleToAsk / 20); // Assume 20 doors per canvassing shift
+      resultText += `You will need about ${shifts} canvassing shift(s).`;
+    } else if (contactMethod === "tabling") {
+      const tables = Math.ceil(peopleToAsk / 50); // Assume 50 people per table
+      resultText += `You will need about ${tables} tabling session(s).`;
+    } else if (contactMethod === "streetCanvassing") {
+      const streetShifts = Math.ceil(peopleToAsk / 30); // Assume 30 people per street canvassing shift
+      resultText += `You will need about ${streetShifts} street canvassing shift(s).`;
+    }
   
     // Display the results
-    let resultText = `<p><strong>Total People to Contact:</strong> ${contactGoal}</p>`;
-    resultText += `<p><strong>Contact Rate:</strong> ${contactRate}%</p>`;
-    resultText += `<p><strong>Flake Factor:</strong> ${flakeFactor}%</p>`;
-    resultText += `<p><strong>To achieve your goal, you will need to contact about <span style="font-weight: bold">${adjustedGoal.toFixed(0)} people</span> to account for no-shows.</p>`;
-  
-    // Generate outreach plan based on contact method
-    if (contactMethod === "phone") {
-      let phonebanks = Math.ceil(adjustedGoal / 200);  // Assuming 200 calls per phonebank
-      resultText += `<p><strong>Phonebanking Plan:</strong> You'll need approximately <span style="font-weight: bold">${phonebanks}</span> phonebanks, with 5 phonebankers per phonebank.</p>`;
-    } else if (contactMethod === "canvassing") {
-      let canvassingShifts = Math.ceil(adjustedGoal / 140);  // Assuming 140 doors per canvasser
-      resultText += `<p><strong>Canvassing Plan:</strong> You'll need approximately <span style="font-weight: bold">${canvassingShifts}</span> canvassing shifts.</p>`;
-    } else if (contactMethod === "other") {
-      resultText += `<p><strong>Other Method:</strong> Based on your contact rate and flake factor, you'll need to adjust your outreach accordingly.</p>`;
-    }
-  
-    // Display final results
     document.getElementById("result").innerHTML = resultText;
   }
   

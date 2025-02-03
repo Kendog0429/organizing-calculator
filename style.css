@@ -1,70 +1,77 @@
+/* Global styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f7fa;
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  h1 {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
     text-align: center;
-    color: #333;
+    padding: 20px;
   }
   
-  h3 {
-    color: #333;
-  }
-  
-  .instructions {
-    background-color: #e7f4f1;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    font-size: 14px;
-  }
-  
+  /* Container for the input form */
   .input-container {
-    margin: 15px 0;
+    margin: 20px 0;
+    font-size: 20px;
   }
   
   label {
+    font-size: 18px;
     display: block;
-    margin: 5px 0;
+    margin-bottom: 10px;
   }
   
-  input, select, button {
-    width: 100%;
+  input, select {
     padding: 10px;
-    margin: 5px 0 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    font-size: 18px;
+    width: 50%;
+    margin-bottom: 20px;
   }
   
   button {
+    padding: 15px 30px;
+    font-size: 18px;
     background-color: #007bff;
     color: white;
-    cursor: pointer;
     border: none;
-    font-size: 16px;
+    cursor: pointer;
   }
   
   button:hover {
     background-color: #0056b3;
   }
   
+  /* Result container */
   .result {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+  
+  /* Instructions section */
+  .instructions {
+    font-size: 22px;
+    margin-bottom: 40px;
+  }
+  
+  .instructions p {
+    line-height: 1.5;
+  }
+  
+  h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+  
+  /* Make the content more centered */
+  body {
+    max-width: 1200px;
+    margin: 0 auto;
     background-color: #fff;
-    border-radius: 4px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   
-  .result ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .result li {
-    margin-bottom: 10px;
+  h3 {
+    font-size: 28px;
+    margin-top: 40px;
   }
   
