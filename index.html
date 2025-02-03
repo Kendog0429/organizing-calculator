@@ -1,117 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Organizing Calculator</title>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f4f4f4;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    .instructions {
-      background-color: #fff;
-      padding: 15px;
-      border-radius: 5px;
-      margin-bottom: 20px;
-    }
-    .input-container {
-      margin-bottom: 15px;
-    }
-    .input-container label {
-      font-size: 1.1em;
-      margin-bottom: 5px;
-      display: block;
-    }
-    .input-container input,
-    .input-container select {
-      width: 100%;
-      padding: 10px;
-      font-size: 1em;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 15px 20px;
-      font-size: 1.2em;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-    .result {
-      background-color: #fff;
-      padding: 15px;
-      border-radius: 5px;
-      margin-top: 20px;
-      font-size: 1.2em;
-      color: #333;
-      min-height: 100px;
-    }
-    ol {
-      margin-left: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizing Calculator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <h1>Organizing Calculator</h1>
+    <h1>Organizing Calculator</h1>
 
-  <div class="instructions">
-    <p><strong>Instructions:</strong> This tool helps you calculate how many people you need to contact to achieve your organizing goals. Enter your required number of contacts and the contact method, and the tool will show you the estimated number of outreach actions (e.g., phonebanks, canvassing shifts) required, considering a "flake factor" for no-shows.</p>
-    <p><strong>Steps:</strong> 
-      <ol>
-        <li>Enter how many people you need to contact.</li>
-        <li>Select your preferred contact method (e.g., phonebanking or canvassing).</li>
-        <li>Input the expected contact rate (percentage of people reached).</li>
-        <li>Set the "flake factor" (percentage of people who will not show up).</li>
-        <li>Click "Calculate" to generate your outreach plan.</li>
-      </ol>
-    </p>
-  </div>
+    <div class="instructions">
+        <p><strong>Instructions:</strong> This tool helps you calculate how many people you need to contact to achieve your organizing goals. Enter your required number of contacts and the contact method, and the tool will show you the estimated number of outreach actions (e.g., phonebanks, canvassing shifts) required, considering a "flake factor" for no-shows.</p>
+        <p><strong>Steps:</strong> 
+            <ol>
+                <li>Enter how many people you need to contact.</li>
+                <li>Select your preferred contact method (e.g., phonebanking or canvassing).</li>
+                <li>Input the expected contact rate (percentage of people reached).</li>
+                <li>Set the "flake factor" (percentage of people who will not show up).</li>
+                <li>Click "Calculate" to generate your outreach plan.</li>
+            </ol>
+        </p>
+    </div>
 
-  <div class="input-container">
-    <label for="contactGoal">How many people do you need to contact?</label>
-    <input type="number" id="contactGoal" placeholder="Enter number of people (e.g., 1000)" required>
-  </div>
+    <div class="input-container">
+        <label for="contactGoal">How many people do you need to contact?</label>
+        <input type="number" id="contactGoal" placeholder="Enter number of people (e.g., 1000)" required>
+    </div>
 
-  <div class="input-container">
-    <label for="contactMethod">Choose a contact method:</label>
-    <select id="contactMethod">
-      <option value="phone">Phonebanking (VPB)</option>
-      <option value="canvassing">Canvassing</option>
-      <option value="tabling">Tabling</option>
-      <option value="streetCanvassing">Street Canvassing</option>
-    </select>
-  </div>
+    <div class="input-container">
+        <label for="contactMethod">Choose a contact method:</label>
+        <select id="contactMethod">
+            <option value="phone">Phonebanking (VPB)</option>
+            <option value="canvassing">Canvassing</option>
+            <option value="tabling">Tabling</option>
+            <option value="streetCanvassing">Street Canvassing</option>
+        </select>
+    </div>
 
-  <div class="input-container">
-    <label for="contactRate">Enter the contact rate (%)</label>
-    <input type="number" id="contactRate" placeholder="e.g., 8 for 8%" required>
-  </div>
+    <div class="input-container">
+        <label for="contactRate">Enter the contact rate (%)</label>
+        <input type="number" id="contactRate" placeholder="e.g., 8 for 8%" required>
+    </div>
 
-  <div class="input-container">
-    <label for="flakeFactor">Enter the flake factor (%)</label>
-    <input type="number" id="flakeFactor" placeholder="e.g., 50 for 50%" required>
-  </div>
+    <div class="input-container">
+        <label for="flakeFactor">Enter the flake factor (%)</label>
+        <input type="number" id="flakeFactor" placeholder="e.g., 50 for 50%" required>
+    </div>
 
-  <button onclick="calculateOutreach()">Calculate Plan</button>
+    <button onclick="calculateOutreach()">Calculate Plan</button>
 
-  <h3>Outreach Plan:</h3>
-  <div id="result" class="result"></div>
+    <h3>Outreach Plan:</h3>
+    <div id="result" class="result"></div>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

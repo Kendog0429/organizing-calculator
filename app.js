@@ -5,13 +5,13 @@ function calculateOutreach() {
     const contactRateInput = document.getElementById("contactRate");
     const flakeFactor = parseInt(document.getElementById("flakeFactor").value);
 
-    // Check if the input values are valid
-    if (isNaN(contactGoal) || isNaN(flakeFactor) || contactGoal <= 0 || flakeFactor < 0) {
-        document.getElementById("result").innerHTML = "<p>Please provide valid inputs for both the number of people and flake factor.</p>";
+    // Validate if contactGoal or flakeFactor is not empty
+    if (!contactGoal || !flakeFactor) {
+        document.getElementById("result").innerHTML = "<p>Please provide both the number of people to contact and flake factor.</p>";
         return;
     }
 
-    // Default contact rate (can be overridden by the selected contact method)
+    // Default contact rate
     let contactRate = parseInt(contactRateInput.value);
 
     // Set the contact rate automatically based on selected method
@@ -57,4 +57,5 @@ function calculateOutreach() {
 
     // Display the results in the result div
     document.getElementById("result").innerHTML = resultText;
+    document.getElementById("result").style.display = "block";  // Show the result section after calculation
 }
