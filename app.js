@@ -4,8 +4,14 @@ function calculateOutreach() {
     const contactMethod = document.getElementById("contactMethod").value;
     const contactRateInput = document.getElementById("contactRate");
     const flakeFactor = parseInt(document.getElementById("flakeFactor").value);
-  
-    // Default contact rate
+
+    // Check if the input values are valid
+    if (isNaN(contactGoal) || isNaN(flakeFactor) || contactGoal <= 0 || flakeFactor < 0) {
+        document.getElementById("result").innerHTML = "<p>Please provide valid inputs for both the number of people and flake factor.</p>";
+        return;
+    }
+
+    // Default contact rate (can be overridden by the selected contact method)
     let contactRate = parseInt(contactRateInput.value);
 
     // Set the contact rate automatically based on selected method
@@ -22,24 +28,18 @@ function calculateOutreach() {
         contactRate = 10;  // Street Canvassing
         contactRateInput.value = contactRate;  // Update the field with the correct rate
     }
-  
-    // Validate if contactGoal or flakeFactor is not empty
-    if (!contactGoal || !flakeFactor) {
-        document.getElementById("result").innerHTML = "<p>Please provide both the number of people to contact and flake factor.</p>";
-        return;
-    }
-  
+
     // Calculate how many people need to be contacted based on the contact rate
     const adjustedGoal = contactGoal / (contactRate / 100);
-    
+
     // Calculate the number of people to ask considering the flake factor
     const peopleToAsk = adjustedGoal / (1 - flakeFactor / 100);
-  
+
     // Start building the result text
     let resultText = `<strong>For ${contactGoal} people:</strong><br>
     - You need to contact approximately ${Math.round(adjustedGoal)} people.<br>
     - To account for a ${flakeFactor}% flake factor, you need to ask ${Math.round(peopleToAsk)} people.<br>`;
-  
+
     // Calculate outreach actions (phonebanks, canvassing shifts, etc.)
     if (contactMethod === "phone") {
         const phonebanks = Math.ceil(peopleToAsk / 100); // Assume 100 people per phonebank
@@ -54,7 +54,7 @@ function calculateOutreach() {
         const streetShifts = Math.ceil(peopleToAsk / 30); // Assume 30 people per street canvassing shift
         resultText += `You will need about ${streetShifts} street canvassing shift(s).`;
     }
-  
+
     // Display the results in the result div
     document.getElementById("result").innerHTML = resultText;
 }
