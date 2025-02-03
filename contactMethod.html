@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citizen Action of New York Organizing Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="logo.png" alt="Citizen Action Logo" class="logo">
+      <h1>Citizen Action of New York Organizing Calculator</h1>
+    </header>
+
+    <div class="form-container">
+      <h2>Step 2: Choose a contact method and enter the contact rate</h2>
+      <p>Please select one of the contact methods below and enter the expected contact rate for that method.</p>
+
+      <select id="contactMethod">
+        <option value="phone">Phonebanking (VPB): 8%</option>
+        <option value="canvassing">Canvassing: 15%</option>
+        <option value="tabling">Tabling: 25%</option>
+        <option value="streetCanvassing">Street Canvassing: 10%</option>
+      </select>
+
+      <input type="number" id="contactRate" placeholder="Enter contact rate (%)" required>
+
+      <label for="outreachPlan">
+        <input type="checkbox" id="outreachPlan">
+        Make an outreach plan for me
+      </label>
+
+      <button onclick="submitData()">Done!</button>
+    </div>
+  </div>
+
+  <script>
+    function submitData() {
+      const contactMethod = document.getElementById('contactMethod').value;
+      const contactRate = document.getElementById('contactRate').value;
+      const outreachPlan = document.getElementById('outreachPlan').checked;
+
+      if (contactRate) {
+        localStorage.setItem('contactMethod', contactMethod);
+        localStorage.setItem('contactRate', contactRate);
+        localStorage.setItem('outreachPlan', outreachPlan);
+
+        window.location.href = 'outreachPlan.html';
+      } else {
+        alert('Please enter the contact rate.');
+      }
+    }
+  </script>
+</body>
+</html>

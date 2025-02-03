@@ -1,76 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Citizen Action of New York Organizing Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citizen Action of New York Organizing Calculator</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <!-- Logo Section -->
+  <div class="container">
     <header>
-        <img src="logo-placeholder.png" alt="Citizen Action of New York Logo" class="logo">
-        <h1>Citizen Action of New York Organizing Calculator</h1>
+      <img src="logo.png" alt="Citizen Action Logo" class="logo">
+      <h1>Citizen Action of New York Organizing Calculator</h1>
     </header>
 
-    <!-- Instructions Section -->
-    <div class="instructions">
-        <p><strong>Instructions:</strong> This tool helps you calculate how many people you need to contact to achieve your organizing goals. Enter your required number of contacts and the contact method, and the tool will show you the estimated number of outreach actions (e.g., phonebanks, canvassing shifts) required, considering a "flake factor" for no-shows.</p>
-        <p><strong>Steps:</strong> 
-            <ol>
-                <li>Enter how many people you need to contact.</li>
-                <li>Select your preferred contact method (e.g., phonebanking or canvassing).</li>
-                <li>Input the expected contact rate (percentage of people reached).</li>
-                <li>Set the "flake factor" (percentage of people who will not show up).</li>
-                <li>Click "Calculate" to generate your outreach plan.</li>
-            </ol>
-        </p>
+    <div class="form-container">
+      <h2>Step 1: Enter the total number of people you want to contact</h2>
+      <p>We'll help you calculate your outreach plan.</p>
+
+      <input type="number" id="contactGoal" placeholder="Enter total number of people" required>
+
+      <button onclick="nextPage()">Next</button>
     </div>
+  </div>
 
-    <!-- Input Section -->
-    <div class="input-container">
-        <label for="contactGoal">How many people do you need to contact?</label>
-        <input type="number" id="contactGoal" placeholder="Enter number of people (e.g., 1000)" required>
-    </div>
-
-    <div class="input-container">
-        <label for="contactMethod">Choose a contact method:</label>
-        <select id="contactMethod">
-            <option value="phone">Phonebanking (VPB)</option>
-            <option value="canvassing">Canvassing</option>
-            <option value="tabling">Tabling</option>
-            <option value="streetCanvassing">Street Canvassing</option>
-        </select>
-    </div>
-
-    <div class="input-container">
-        <label for="contactRate">Enter the contact rate (%)</label>
-        <input type="number" id="contactRate" placeholder="e.g., 8 for 8%" required>
-    </div>
-
-    <div class="input-container">
-        <label for="flakeFactor">Enter the flake factor (%)</label>
-        <input type="number" id="flakeFactor" placeholder="e.g., 50 for 50%" required>
-    </div>
-
-    <button onclick="calculateOutreach()">Calculate Plan</button>
-
-    <!-- Contact Rates Section -->
-    <div class="contact-rates">
-        <h3>Contact Rates for Each Outreach Method:</h3>
-        <ul>
-            <li><strong>Phonebanking (VPB):</strong> 8%</li>
-            <li><strong>Canvassing:</strong> 15%</li>
-            <li><strong>Tabling:</strong> 25%</li>
-            <li><strong>Street Canvassing:</strong> 10%</li>
-        </ul>
-    </div>
-
-    <!-- Result Section -->
-    <h3>Outreach Plan:</h3>
-    <div id="result" class="result"></div>
-
-    <script src="script.js"></script>
+  <script>
+    function nextPage() {
+      const contactGoal = document.getElementById('contactGoal').value;
+      if (contactGoal) {
+        localStorage.setItem('contactGoal', contactGoal);
+        window.location.href = 'contactMethod.html';
+      } else {
+        alert('Please enter the total number of people.');
+      }
+    }
+  </script>
 </body>
 </html>
