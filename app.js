@@ -56,10 +56,6 @@ function generatePlan() {
     resultText += `You will need about ${streetShifts} street canvassing shift(s).`;
   }
 
-  // If the "Create an outreach plan" checkbox is checked, show the result
-  if (document.getElementById("generatePlanCheckbox").checked) {
-    document.getElementById("result").innerHTML = resultText;
-  } else {
-    document.getElementById("result").innerHTML = "<p>Please check the box to generate an outreach plan.</p>";
-  }
+  // Show the outreach plan result
+  document.getElementById("result").innerHTML = resultText;
 }
