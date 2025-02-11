@@ -12,50 +12,36 @@
   </header>
 
   <div class="container">
-    <!-- Step 1: Select Intention -->
-    <div id="step1" class="step">
-      <h2>Step 1: What would you like to do?</h2>
-      <label><input type="radio" name="intention" value="contactPeople" onclick="nextStep(2)"> Contact a certain number of people</label><br>
-      <label><input type="radio" name="intention" value="eventTurnout" onclick="nextStep(3)"> Plan for an event turnout</label><br>
-      <button onclick="nextStep(1)">Next</button>
-    </div>
-
-    <!-- Step 2: If "Contact People" is selected -->
-    <div id="step2" class="step" style="display:none;">
-      <h2>Step 2: Contact a certain number of people</h2>
-      <input type="number" id="contactPeopleNumber" placeholder="Enter number of people to contact" required>
-      <label><input type="checkbox" id="filterContactMethod"> Filter by contact method</label><br>
-      
-      <div id="contactMethodSection" style="display:none;">
-        <label for="contactMethod">Choose contact method:</label>
-        <select id="contactMethod">
-          <option value="phone">Phonebanking</option>
-          <option value="canvassing">Canvassing</option>
-          <option value="tabling">Tabling</option>
-          <option value="streetCanvassing">Street Canvassing</option>
-        </select>
+    <!-- First Page -->
+    <div id="firstPage" class="page">
+      <h2>Welcome! Let's start planning your outreach.</h2>
+      <p><strong>Step 1:</strong> What is your goal?</p>
+      <div>
+        <label>
+          <input type="radio" name="intention" value="contactPeople" checked> Contact a certain number of people
+        </label>
+        <label>
+          <input type="radio" name="intention" value="turnoutEvent"> Turnout for an event
+        </label>
       </div>
-      
-      <button onclick="calculateContactPeople()">Generate Plan</button>
+      <button onclick="nextStep()">Next</button>
     </div>
 
-    <!-- Step 3: If "Event Turnout" is selected -->
-    <div id="step3" class="step" style="display:none;">
-      <h2>Step 2: Plan for an Event Turnout</h2>
-      <input type="number" id="turnoutGoal" placeholder="Enter turnout goal (number of people)" required><br>
-      <input type="date" id="eventDate" required><br>
-      <input type="number" id="coreLeaders" placeholder="How many core leaders?" required><br>
-      <textarea id="coreLeaderNames" placeholder="Names of core leaders"></textarea><br>
-      <input type="number" id="weeksUntilEvent" placeholder="How many weeks until the event?" required><br>
-
-      <button onclick="calculateEventTurnout()">Generate Plan</button>
+    <!-- Second Page (for contact people) -->
+    <div id="contactPeoplePage" class="page" style="display: none;">
+      <h2>Step 2: Enter the number of people to contact</h2>
+      <input type="number" id="totalPeople" placeholder="Enter number of people (e.g., 100)" required>
+      <button onclick="generateContactPlan()">Generate Contact Plan</button>
+      <div id="result"></div>
     </div>
 
-    <!-- Results -->
-    <div id="result" class="step" style="display:none;">
-      <h2>Results</h2>
-      <div id="resultText"></div>
-      <button onclick="goBack()">Back to Start</button>
+    <!-- Second Page (for event turnout) -->
+    <div id="turnoutEventPage" class="page" style="display: none;">
+      <h2>Step 2: Turnout Plan</h2>
+      <input type="number" id="turnoutGoal" placeholder="Event turnout goal (e.g., 20)" required>
+      <input type="date" id="eventDate" required>
+      <button onclick="generateTurnoutPlan()">Generate Turnout Plan</button>
+      <div id="turnoutResult"></div>
     </div>
   </div>
 
