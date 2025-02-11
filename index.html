@@ -31,11 +31,20 @@
         <option value="streetCanvassing">Street Canvassing</option>
       </select>
 
-      <button onclick="generatePlan()">Done!</button>
-
+      <!-- Checkbox to indicate if the user wants to create a full outreach plan -->
       <label for="generatePlanCheckbox">
-        <input type="checkbox" id="generatePlanCheckbox"> Create an outreach plan
+        <input type="checkbox" id="generatePlanCheckbox" onclick="toggleOutreachPlanFields()"> Create an outreach plan
       </label>
+
+      <!-- Fields for Outreach Plan -->
+      <div id="outreachPlanFields" style="display:none;">
+        <p><strong>Event Information</strong></p>
+        <input type="number" id="eventTurnoutGoal" placeholder="Event Turnout Goal (e.g., 100)" required>
+        <input type="text" id="topLeaders" placeholder="Top Leaders (comma separated)" required>
+        <input type="date" id="eventDate" placeholder="Event Date" required>
+      </div>
+
+      <button onclick="generatePlan()">Done!</button>
 
       <div id="result"></div>
     </div>

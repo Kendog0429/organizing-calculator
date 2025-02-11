@@ -1,4 +1,3 @@
-// Handle the first page - Enter total number of people
 let totalPeople = 0; // This will store the number of people to contact
 const flakeFactor = 50; // Fixed flake factor (50%) — assumed
 
@@ -15,11 +14,27 @@ function startCalculator() {
   document.getElementById("secondPage").style.display = "block";
 }
 
-// Handle the second page - Select contact method and generate the plan
+// Toggle the display of outreach plan fields
+function toggleOutreachPlanFields() {
+  const isChecked = document.getElementById("generatePlanCheckbox").checked;
+  document.getElementById("outreachPlanFields").style.display = isChecked ? "block" : "none";
+}
+
 function generatePlan() {
   const contactMethod = document.getElementById("contactMethod").value;
+  const isOutreachPlanChecked = document.getElementById("generatePlanCheckbox").checked;
 
-  // Automatically set the contact rate based on the selected method
+  if (isOutreachPlanChecked) {
+    // Generating detailed outreach plan using turnout template
+    generateOutreachPlan();
+  } else {
+    // Generate basic outreach calculation
+    generateContactCalculation(contactMethod);
+  }
+}
+
+// Basic contact calculation based on contact method
+function generateContactCalculation(contactMethod) {
   let contactRate = 0;
   if (contactMethod === "phone") {
     contactRate = 8;  // Phonebanking (VPB)
@@ -36,7 +51,7 @@ function generatePlan() {
   const peopleToAsk = adjustedGoal / (1 - flakeFactor / 100);  // 50% flake factor
 
   let resultText = `
-    <strong>Outreach Plan:</strong><br>
+    <strong>Basic Outreach Calculation:</strong><br>
     - You need to contact approximately ${Math.round(adjustedGoal)} people.<br>
     - Considering a ${flakeFactor}% flake factor, you need to ask ${Math.round(peopleToAsk)} people.<br>
   `;
@@ -56,6 +71,37 @@ function generatePlan() {
     resultText += `You will need about ${streetShifts} street canvassing shift(s).`;
   }
 
-  // Show the outreach plan result
+  document.getElementById("result").innerHTML = resultText;
+}
+
+// Generate detailed outreach plan based on turnout goal and RSVP targets
+function generateOutreachPlan() {
+  const eventTurnoutGoal = parseInt(document.getElementById("eventTurnoutGoal").value);
+  const eventDate = document.getElementById("eventDate").value;
+
+  const topLeaders = document.getElementById("topLeaders").value.split(",");  // Example: "John, Jane"
+  const leadersCount = topLeaders.length;
+  
+  const additionalParticipantsNeeded = eventTurnoutGoal - leadersCount;
+  const rsvpGoal = eventTurnoutGoal * 2;  // Assume 2x RSVPs needed
+  const weeksUntilEvent = 2;  // For now, using a fixed number of weeks
+  const rsvpsPerWeek = Math.ceil(rsvpGoal / weeksUntilEvent);
+  
+  // Calculate volunteer shifts
+  const volunteerShifts = Math.ceil(rsvpGoal / 10); // 10 volunteers per shift
+  const volunteerRecruitmentCalls = volunteerShifts * 10; // 10 calls per shift
+
+  let resultText = `
+    <strong>Outreach Plan:</strong><br>
+    - Event Date: ${eventDate}<br>
+    - Event Turnout Goal: ${eventTurnoutGoal} people<br>
+    - Top Leaders Attending: ${leadersCount} (${topLeaders.join(", ")})<br>
+    - Additional Participants Needed: ${additionalParticipantsNeeded}<br>
+    - RSVPs Required: ${rsvpGoal}<br>
+    - You need to collect ${rsvpsPerWeek} RSVPs per week for the next 2 weeks.<br>
+    - Volunteer Shifts Needed: ${volunteerShifts}<br>
+    - Volunteer Recruitment Calls Needed: ${volunteerRecruitmentCalls}<br>
+  `;
+
   document.getElementById("result").innerHTML = resultText;
 }
