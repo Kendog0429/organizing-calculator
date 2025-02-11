@@ -8,8 +8,8 @@ body {
 }
 
 header {
-  background-color: #d32f2f; /* Red background */
-  color: white; /* White text */
+  background-color: #d32f2f;
+  color: white;
   text-align: center;
   padding: 20px 0;
 }
@@ -36,7 +36,7 @@ h2 {
   margin-bottom: 15px;
 }
 
-input[type="number"], select {
+input[type="number"], input[type="date"], select {
   padding: 10px;
   width: 100%;
   font-size: 1.2em;
@@ -73,5 +73,9 @@ button:hover {
 label {
   display: block;
   margin-top: 10px;
+  font-size: 1.1em;
+}
+
+select {
   font-size: 1.1em;
 }

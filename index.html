@@ -12,55 +12,43 @@
   </header>
 
   <div class="container">
-    <!-- Step 1: Choose a Goal -->
-    <div id="intentionPage" class="page">
-      <h2>Step 1: What's your goal today?</h2>
-      <p>Select your objective to get started:</p>
-      <input type="radio" id="contactPeople" name="intention" value="contactPeople">
-      <label for="contactPeople">Contact a certain number of people</label><br>
-      <input type="radio" id="turnoutPeople" name="intention" value="turnoutPeople">
-      <label for="turnoutPeople">Turn out a certain number of people for an event</label><br>
-      <button onclick="startIntention()">Next</button>
-    </div>
+    <!-- Step 1: Select What You Want to Do -->
+    <div id="step1" class="page">
+      <h2>Welcome! Let's start planning your outreach.</h2>
+      <p><strong>Step 1:</strong> What are you trying to do?</p>
+      <select id="goalType" onchange="handleGoalTypeChange()">
+        <option value="contactPeople">Contact a Certain Number of People</option>
+        <option value="eventTurnout">Turnout People for an Event</option>
+      </select>
 
-    <!-- Step 2: Filter by Contact Method -->
-    <div id="filterMethodPage" class="page" style="display:none;">
-      <h2>Step 2: Do you want to filter by contact method?</h2>
-      <label for="filterByContactMethod">
-        <input type="checkbox" id="filterByContactMethod"> Yes, filter by contact method.
-      </label><br>
-      <div id="contactMethodOptions" style="display:none;">
-        <p>Select the contact method(s) you want to use:</p>
-        <input type="checkbox" id="phone" value="phone"> Phonebanking<br>
-        <input type="checkbox" id="canvassing" value="canvassing"> Canvassing<br>
-        <input type="checkbox" id="tabling" value="tabling"> Tabling<br>
-        <input type="checkbox" id="streetCanvassing" value="streetCanvassing"> Street Canvassing<br>
+      <!-- Step 1a: Input number of people to contact -->
+      <div id="contactPeopleSection">
+        <h3>How many people would you like to contact?</h3>
+        <input type="number" id="peopleToContactInput" placeholder="Enter number of people">
+        <button onclick="generateContactPlanWithoutFilter()">Generate Plan</button>
+
+        <label for="contactMethodFilter">
+          Filter by contact method?
+          <select id="contactMethodFilter">
+            <option value="">Select Method (Optional)</option>
+            <option value="phone">Phonebanking</option>
+            <option value="canvassing">Canvassing</option>
+            <option value="tabling">Tabling</option>
+            <option value="streetCanvassing">Street Canvassing</option>
+          </select>
+        </label>
       </div>
-      <button onclick="proceedToNextStep()">Next</button>
-    </div>
 
-    <!-- General Outreach Plan (for contacting a certain number of people) -->
-    <div id="generatePlanPage" class="page" style="display:none;">
-      <h2>Step 3: Generate Your Outreach Plan</h2>
-      <p>Enter the total number of people you want to contact:</p>
-      <input type="number" id="totalPeopleInput" placeholder="Enter number of people (e.g., 100)" required>
-      <button onclick="generateOutreachPlan()">Generate Plan</button>
+      <!-- Step 1b: Input number of people for event turnout -->
+      <div id="eventTurnoutSection" style="display:none;">
+        <h3>How many people do you want to turnout for your event?</h3>
+        <input type="number" id="eventTurnoutGoalInput" placeholder="Enter number of people">
+        <h3>Event Date:</h3>
+        <input type="date" id="eventDateInput">
+        <button onclick="generateEventTurnoutPlan()">Generate Event Plan</button>
+      </div>
 
       <div id="result"></div>
-    </div>
-
-    <!-- Event Turnout Plan (for turning out people to an event) -->
-    <div id="turnoutPeoplePage" class="page" style="display:none;">
-      <h2>Step 2: Enter Your Event Details</h2>
-      <p>Enter the number of people you want to turnout:</p>
-      <input type="number" id="turnoutPeopleInput" placeholder="Enter number of people to turnout (e.g., 500)" required><br>
-
-      <p>Enter the date of your event:</p>
-      <input type="date" id="eventDate" required><br>
-
-      <button onclick="generateTurnoutPlan()">Generate Event Turnout Plan</button>
-
-      <div id="turnoutResult"></div>
     </div>
   </div>
 

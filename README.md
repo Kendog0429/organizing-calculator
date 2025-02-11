@@ -1,64 +1,66 @@
-# Citizen Action of New York Organizing Calculator
+# Citizen Action of New York Outreach Planning Calculator
 
-This tool helps organizers estimate how many people they need to contact and how to reach them through various contact methods (phonebanking, canvassing, tabling, or street canvassing). It factors in a 50% no-show (flake) rate for all outreach efforts, helping you create an effective outreach plan to meet your goals.
-
----
+This is a web-based tool that helps organize and plan outreach strategies for contacting people or turning out people to an event. The tool calculates the number of people you need to contact, broken down by different contact methods (phone banking, canvassing, tabling, etc.) while accounting for various success rates. It also includes a flake factor for event turnout, where a portion of RSVPs are expected to not show up.
 
 ## Features
 
-- **Estimates turnout**: Given a number of people to contact, it calculates the number of people you need to ask to ensure enough show up (considering a 50% no-show rate).
-- **Multiple outreach methods**: Choose from different methods such as phonebanking, canvassing, tabling, and street canvassing. Each method has its own contact rate.
-- **Creates a detailed outreach plan**: Based on your inputs, the tool suggests how many phonebanks, canvassing shifts, tabling sessions, or street canvassing shifts you’ll need to meet your goal.
-- **Flexible for different goals**: Allows users to either:
-  - Plan outreach to contact a specific number of people, or
-  - Plan turnout for a specific number of people at an event.
-- **Filter by contact method**: Users can choose to filter by contact method (phonebanking, canvassing, etc.), making it easier to plan for specific seasons or preferences (e.g., phonebanking during winter).
-- **User-friendly interface**: Simple steps with clear guidance on how to enter your data, providing a seamless planning experience.
+1. **Contact People:**
+   - Users can input how many people they want to contact.
+   - The tool calculates a breakdown of how many people to contact per method (Phonebanking, Canvassing, Tabling, etc.), adjusting for each method’s success rate.
+   - Option to filter by contact method (e.g., only Phonebanking, only Canvassing).
 
----
+2. **Event Turnout:**
+   - Users can input how many people they want to turnout for an event and the event date.
+   - The tool calculates how many people need to be contacted, factoring in both success rates and the "flake factor" (only 50% of people who RSVP will likely show up).
+   - Provides a suggested breakdown for the number of contacts per method needed to meet your turnout goal.
 
-## New Features
+3. **Contact Method Success Rates:**
+   - The tool accounts for the success rates of different outreach methods:
+     - **Phonebanking:** 8% success rate
+     - **Canvassing:** 15% success rate
+     - **Tabling:** 25% success rate
+     - **Street Canvassing:** 10% success rate
 
-1. **Goal Selection**:
-   - Users can select whether they are looking to **contact** or **turnout** a certain number of people.
-   - Based on the selection, the tool either generates an outreach plan or turnout plan accordingly.
+4. **Flexible User Interface:**
+   - Easily switch between contacting people and turning out people for an event.
+   - Optionally filter by contact method for specific calculations.
 
-2. **Outreach Plan Creation**:
-   - If users want to contact a certain number of people, the tool creates a general outreach plan that distributes outreach tasks (phonebanking, canvassing, etc.) as a template.
-   - If users are turning out people to an event, they can also specify the event date and the target turnout goal.
+## Usage
 
-3. **Filter by Contact Method**:
-   - Users can optionally filter outreach by the method they prefer (e.g., phonebanking, canvassing).
-   - This allows for more targeted outreach strategies based on time of year or campaign strategy.
+1. **Contact People:**
+   - Select the "Contact a Certain Number of People" option.
+   - Enter the number of people you want to contact.
+   - Optionally, filter by contact method (Phonebanking, Canvassing, Tabling, Street Canvassing).
+   - The tool will provide a suggested breakdown of how many people to contact for each method, based on success rates.
 
-4. **Improved User Interface**:
-   - A more visually pleasing design with enhanced typography and interactive elements (e.g., buttons and input fields).
-   - Smooth transitions between steps and clear sections to guide users through the process.
-   - A clean, modern layout to make the tool more user-friendly and engaging.
+2. **Event Turnout:**
+   - Select the "Turnout People for an Event" option.
+   - Enter the number of people you want to turnout and the event date.
+   - The tool will calculate how many people need to be contacted, adjusting for the "flake factor" (50% no-show rate) and the success rates of each contact method.
 
----
+## Example Outputs
 
-## How It Works
+### Contact a Certain Number of People:
+- You want to contact 100 people.
+- Suggested Breakdown:
+  - **Phonebanking:** 125 people
+  - **Canvassing:** 67 people
+  - **Tabling:** 40 people
+  - **Street Canvassing:** 100 people
 
-1. **Step 1**: Choose your goal:
-   - **Contact a certain number of people**: Plan outreach based on the number of people you wish to contact.
-   - **Turnout a certain number of people for an event**: Plan turnout efforts for your event by specifying the number of people you want to attend and the event date.
-   
-2. **Step 2**: Optionally filter by contact method:
-   - Select specific contact methods you wish to use (phonebanking, canvassing, tabling, or street canvassing).
-   - This is helpful for seasonal strategies or specific outreach preferences.
+### Event Turnout Plan:
+- You want to turnout 12 people for your event on 2025-03-04.
+- Suggested Breakdown:
+  - **Phonebanking:** 50 people
+  - **Canvassing:** 30 people
+  - **Tabling:** 16 people
+  - **Street Canvassing:** 20 people
 
-3. **Step 3**: Generate your plan:
-   - Based on your inputs, the tool will calculate the required outreach actions (phonebanks, canvassing shifts, etc.).
-   - If turning out for an event, a tailored event turnout plan is generated based on your desired outcome.
+## Development Setup
 
----
+To run the project locally, follow these steps:
 
-## Installation Instructions
-
-To set up this project locally, follow these steps:
-
-### 1. Clone or Download the Repository
-
-```bash
-git clone https://github.com/kendog0429/organizing-calculator.git
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Kendog0429/citizen-action-outreach-calculator.git
+   cd citizen-action-outreach-calculator
