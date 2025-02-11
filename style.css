@@ -36,7 +36,7 @@ h2 {
   margin-bottom: 15px;
 }
 
-input[type="number"], input[type="text"], input[type="date"], select {
+input[type="number"], select {
   padding: 10px;
   width: 100%;
   font-size: 1.2em;
@@ -76,51 +76,11 @@ label {
   font-size: 1.1em;
 }
 
-/* Added styles for new outreach plan fields */
-#outreachPlanFields {
-  background-color: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
-  margin-top: 20px;
+#contactMethodOptions {
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 
-#outreachPlanFields input {
+#contactMethodOptions input {
   margin-bottom: 10px;
-}
-
-/* Styles for the checkbox label and outreach plan text */
-input[type="checkbox"] {
-  margin-right: 10px;
-}
-
-input[type="checkbox"]:checked + label {
-  font-weight: bold;
-}
-
-/* Responsive design for smaller screens */
-@media (max-width: 600px) {
-  .container {
-      width: 90%;
-      padding: 15px;
-  }
-
-  h1, h2 {
-      font-size: 1.8em;
-  }
-
-  button {
-      width: 100%;
-      font-size: 1.1em;
-      padding: 12px 0;
-  }
-
-  input[type="number"], input[type="text"], input[type="date"], select {
-      width: 100%;
-      font-size: 1.1em;
-  }
-
-  #result {
-      font-size: 1.1em;
-      padding: 15px;
-  }
 }

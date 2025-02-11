@@ -12,41 +12,48 @@
   </header>
 
   <div class="container">
-    <!-- First page (Enter Total Number of People) -->
-    <div id="firstPage" class="page">
-      <h2>Welcome! Let's start planning your outreach.</h2>
-      <p><strong>Step 1:</strong> Enter the total number of people you want to contact.</p>
-      <input type="number" id="totalPeopleInput" placeholder="Enter number of people (e.g., 1000)" required>
-      <button onclick="startCalculator()">Next</button>
+    <!-- Step 1: Choose Intention -->
+    <div id="intentionPage" class="page">
+      <h2>Step 1: Select Your Intention</h2>
+      <p>What are you looking to do?</p>
+      <input type="radio" id="contactPeople" name="intention" value="contactPeople">
+      <label for="contactPeople">Contact a certain number of people</label><br>
+      <input type="radio" id="turnoutPeople" name="intention" value="turnoutPeople">
+      <label for="turnoutPeople">Turn out a certain number of people for an event</label><br>
+      <button onclick="startIntention()">Next</button>
     </div>
 
-    <!-- Second page (Choose Contact Method and Generate Plan) -->
-    <div id="secondPage" class="page" style="display:none;">
-      <h2>Step 2: Choose your contact method and see your plan!</h2>
-      <p>Choose the method you will use to contact people:</p>
-      <select id="contactMethod">
-        <option value="phone">Phonebanking (VPB)</option>
-        <option value="canvassing">Canvassing</option>
-        <option value="tabling">Tabling</option>
-        <option value="streetCanvassing">Street Canvassing</option>
-      </select>
-
-      <!-- Checkbox to indicate if the user wants to create a full outreach plan -->
-      <label for="generatePlanCheckbox">
-        <input type="checkbox" id="generatePlanCheckbox" onclick="toggleOutreachPlanFields()"> Create an outreach plan
-      </label>
-
-      <!-- Fields for Outreach Plan -->
-      <div id="outreachPlanFields" style="display:none;">
-        <p><strong>Event Information</strong></p>
-        <input type="number" id="eventTurnoutGoal" placeholder="Event Turnout Goal (e.g., 100)" required>
-        <input type="text" id="topLeaders" placeholder="Top Leaders (comma separated)" required>
-        <input type="date" id="eventDate" placeholder="Event Date" required>
+    <!-- Step 2: Filter by Contact Method -->
+    <div id="filterMethodPage" class="page" style="display:none;">
+      <h2>Step 2: Do you want to filter by contact method?</h2>
+      <label for="filterByContactMethod">
+        <input type="checkbox" id="filterByContactMethod"> Yes, filter by contact method.
+      </label><br>
+      <div id="contactMethodOptions" style="display:none;">
+        <p>Select the contact method(s) you want to use:</p>
+        <input type="checkbox" id="phone" value="phone"> Phonebanking<br>
+        <input type="checkbox" id="canvassing" value="canvassing"> Canvassing<br>
+        <input type="checkbox" id="tabling" value="tabling"> Tabling<br>
+        <input type="checkbox" id="streetCanvassing" value="streetCanvassing"> Street Canvassing<br>
       </div>
+      <button onclick="proceedToNextStep()">Next</button>
+    </div>
 
-      <button onclick="generatePlan()">Done!</button>
+    <!-- General Outreach Plan (for contacting a certain number of people) -->
+    <div id="generatePlanPage" class="page" style="display:none;">
+      <h2>Step 3: Generate Your Outreach Plan</h2>
+      <p>Enter the total number of people you want to contact:</p>
+      <input type="number" id="totalPeopleInput" placeholder="Enter number of people (e.g., 100)" required>
+      <button onclick="generateOutreachPlan()">Generate Plan</button>
 
       <div id="result"></div>
+    </div>
+
+    <!-- Event Turnout Plan (for turning out people to an event) -->
+    <div id="turnoutPeoplePage" class="page" style="display:none;">
+      <!-- Turnout Plan elements can remain as they were previously -->
+      <h2>Turnout Plan</h2>
+      <!-- Your event turnout logic goes here -->
     </div>
   </div>
 
