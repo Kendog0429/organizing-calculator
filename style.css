@@ -1,101 +1,82 @@
-/* Basic reset */
-* {
+/* General Layout */
+body {
+  font-family: Arial, sans-serif;
+  background-color: white;
+  color: #333;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-/* Body styling */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
-}
-
-/* Header styling */
 header {
-  background-color: #1E88E5; /* Citizen Action of NY blue */
-  color: white;
+  background-color: #E31C24; /* Red color for the organization */
+  padding: 20px;
   text-align: center;
-  padding: 20px 0;
-  font-size: 2.5em;
+  color: white;
 }
 
-/* Container styling */
 .container {
-  width: 90%;
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 30px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Page layout styling */
-.page {
-  margin-bottom: 30px;
+  padding: 20px;
+  width: 80%;
+  margin: 0 auto;
 }
 
 h2 {
   font-size: 1.8em;
-  color: #1E88E5; /* Citizen Action of NY blue */
-}
-
-input, select, button {
-  font-size: 1.2em;
-  padding: 10px;
-  margin: 10px 0;
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  color: #E31C24;
 }
 
 button {
-  background-color: #1E88E5;
+  background-color: #E31C24;
   color: white;
+  padding: 15px 20px;
+  font-size: 1.2em;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  border-radius: 5px;
 }
 
 button:hover {
-  background-color: #1565C0;
+  background-color: #C00016;
 }
 
-#contactPlanResult, #eventTurnoutResult {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #e8f5e9;
-  border-radius: 10px;
-  font-size: 1.2em;
-}
-
-input[type="checkbox"] {
-  margin-right: 10px;
-}
-
-/* Dropdown styling */
-.dropdown-container {
-  margin-bottom: 20px;
-}
-
-select {
-  font-size: 1.1em;
+input, select {
   padding: 10px;
+  margin: 10px 0;
+  font-size: 1.2em;
   width: 100%;
-  border-radius: 8px;
+  border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-/* Mobile responsiveness */
+input[type="number"] {
+  max-width: 300px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+/* Custom Page Layout */
+.page {
+  display: none;
+}
+
+#contactPeople, #eventTurnout, #customOutreach {
+  display: block;
+}
+
+/* Adjust for small screens */
 @media (max-width: 768px) {
   .container {
-      padding: 15px;
+      width: 100%;
+      padding: 10px;
   }
+
   h2 {
-      font-size: 1.6em;
+      font-size: 1.4em;
   }
-  input, button {
+
+  button, input {
       font-size: 1em;
   }
 }

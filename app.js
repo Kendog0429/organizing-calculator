@@ -1,12 +1,19 @@
-// Event listener to trigger step1 options
+// Function to show the contact people page
 function showContactPeople() {
   document.getElementById("step1").style.display = "none";
   document.getElementById("contactPeople").style.display = "block";
 }
 
+// Function to show the event turnout page
 function showEventTurnout() {
   document.getElementById("step1").style.display = "none";
   document.getElementById("eventTurnout").style.display = "block";
+}
+
+// Function to show the custom outreach plan page
+function showCustomOutreach() {
+  document.getElementById("eventTurnout").style.display = "none";
+  document.getElementById("customOutreach").style.display = "block";
 }
 
 // Calculate the contact plan for a certain number of people
@@ -50,21 +57,41 @@ function calculateEventTurnout() {
       <strong>Event Turnout Plan:</strong><br>
       - You need to turnout ${eventGoal} people for your event on ${eventDate}.<br>
       - You need approximately ${rsvpsNeeded} RSVPs to reach that goal.<br>
-      - To account for the Organizer Math (50% flake rate), you will need to contact approximately ${rsvpsNeeded * 2} people.<br>
+      - To account for the Organizer Math (50% flake rate), you will need to contact approximately ${rsvpsNeeded} people.<br>
       <strong>Suggested Breakdown:</strong><br>
   `;
 
-  // Distribute the total number of people evenly among the methods
-  for (let method of contactMethods) {
-      const methodPeople = Math.ceil(rsvpsNeeded / 4); // Evenly split across methods
-      const methodHours = Math.ceil(methodPeople / 20); // Assume 20 people per hour
-      resultText += `${capitalizeFirstLetter(method)}: ${methodPeople} people (approx. ${methodHours} hours)<br>`;
-  }
+  // Default breakdown
+  contactMethods.forEach(method => {
+      resultText += `- ${capitalizeFirstLetter(method)}: ${Math.ceil(rsvpsNeeded / 4)} people (approx. 1 hour)<br>`;
+  });
 
   document.getElementById("eventTurnoutResult").innerHTML = resultText;
 }
 
-// Helper function to capitalize the first letter of a string
+// Helper function to capitalize first letter
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Generate custom outreach plan based on selected contact methods
+function generateCustomPlan() {
+  const selectedMethods = [];
+  const methods = ["Phone", "Canvassing", "Tabling", "StreetCanvassing"];
+  methods.forEach(method => {
+      if (document.getElementById(`method${method}`).checked) {
+          selectedMethods.push(method);
+      }
+  });
+
+  let resultText = "<strong>Custom Outreach Plan:</strong><br>";
+  if (selectedMethods.length > 0) {
+      selectedMethods.forEach(method => {
+          resultText += `- ${method}: Apply specific contact rates here...<br>`;
+      });
+  } else {
+      resultText += "No contact methods selected!";
+  }
+
+  document.getElementById("customPlanResult").innerHTML = resultText;
 }
