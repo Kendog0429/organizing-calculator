@@ -51,9 +51,16 @@
 
     <!-- Event Turnout Plan (for turning out people to an event) -->
     <div id="turnoutPeoplePage" class="page" style="display:none;">
-      <!-- Turnout Plan elements can remain as they were previously -->
-      <h2>Turnout Plan</h2>
-      <!-- Your event turnout logic goes here -->
+      <h2>Step 2: Enter Your Event Details</h2>
+      <p>Enter the number of people you want to turnout:</p>
+      <input type="number" id="turnoutPeopleInput" placeholder="Enter number of people to turnout (e.g., 500)" required><br>
+
+      <p>Enter the date of your event:</p>
+      <input type="date" id="eventDate" required><br>
+
+      <button onclick="generateTurnoutPlan()">Generate Event Turnout Plan</button>
+
+      <div id="turnoutResult"></div>
     </div>
   </div>
 

@@ -12,7 +12,7 @@ function startIntention() {
     document.getElementById("intentionPage").style.display = "none";
     document.getElementById("filterMethodPage").style.display = "block";
   } else if (intention === "turnoutPeople") {
-    // Proceed with the existing turnout flow
+    // Proceed with the event turnout plan
     document.getElementById("intentionPage").style.display = "none";
     document.getElementById("turnoutPeoplePage").style.display = "block";
   }
@@ -43,7 +43,7 @@ function proceedToNextStep() {
     document.getElementById("filterMethodPage").style.display = "none";
     document.getElementById("generatePlanPage").style.display = "block";
   } else if (intention === "turnoutPeople") {
-    // Continue with the existing logic for turnout
+    // Continue with the existing logic for event turnout
     document.getElementById("filterMethodPage").style.display = "none";
     document.getElementById("turnoutPeoplePage").style.display = "block";
   }
@@ -93,4 +93,42 @@ function generateOutreachPlan() {
   `;
 
   document.getElementById("result").innerHTML = resultText;
+}
+
+// Generate the event turnout plan
+function generateTurnoutPlan() {
+  const turnoutPeople = document.getElementById("turnoutPeopleInput").value;
+  const eventDate = document.getElementById("eventDate").value;
+
+  if (!turnoutPeople || !eventDate) {
+    alert("Please enter both the number of people and the event date.");
+    return;
+  }
+
+  // Assuming a default method distribution for turnout plan (similar to outreach plan)
+  const methodDistribution = {
+    phone: 30,      // 30% phonebanking
+    canvassing: 30, // 30% canvassing
+    tabling: 20,    // 20% tabling
+    streetCanvassing: 20  // 20% street canvassing
+  };
+
+  // Calculate the number of people for each method
+  const phonePeople = Math.round((turnoutPeople * methodDistribution.phone) / 100);
+  const canvassingPeople = Math.round((turnoutPeople * methodDistribution.canvassing) / 100);
+  const tablingPeople = Math.round((turnoutPeople * methodDistribution.tabling) / 100);
+  const streetCanvassingPeople = Math.round((turnoutPeople * methodDistribution.streetCanvassing) / 100);
+
+  // Display the turnout plan
+  let turnoutResultText = `
+    <strong>Event Turnout Plan:</strong><br>
+    - You need to turnout ${turnoutPeople} people for your event on ${eventDate}.<br>
+    - Suggested breakdown:<br>
+    - Phonebanking: ${phonePeople} people<br>
+    - Canvassing: ${canvassingPeople} people<br>
+    - Tabling: ${tablingPeople} people<br>
+    - Street Canvassing: ${streetCanvassingPeople} people<br>
+  `;
+
+  document.getElementById("turnoutResult").innerHTML = turnoutResultText;
 }
