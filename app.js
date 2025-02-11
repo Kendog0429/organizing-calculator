@@ -1,134 +1,93 @@
-// Handle the new step of selecting intention
-function startIntention() {
-  const intention = document.querySelector('input[name="intention"]:checked').value;
+// Handle the first page - Enter total number of people or turnout goal
+let totalPeople = 0; // This will store the number of people to contact
+let eventTurnoutGoal = 0; // This will store the event turnout goal
 
-  if (!intention) {
-    alert("Please select an intention.");
+const flakeFactor = 50; // Fixed flake factor (50%) — assumed
+
+// Contact rate for each method
+const contactRates = {
+  phone: 8,           // Phonebanking (VPB)
+  canvassing: 15,     // Canvassing
+  tabling: 25,        // Tabling
+  streetCanvassing: 10 // Street Canvassing
+};
+
+// Start Calculator - First Page
+function startCalculator() {
+  const peopleInput = document.getElementById("totalPeopleInput").value;
+
+  if (!peopleInput || peopleInput <= 0) {
+    alert("Please enter a valid number of people to contact.");
     return;
   }
 
-  if (intention === "contactPeople") {
-    // Proceed to the general outreach plan
-    document.getElementById("intentionPage").style.display = "none";
-    document.getElementById("filterMethodPage").style.display = "block";
-  } else if (intention === "turnoutPeople") {
-    // Proceed with the event turnout plan
-    document.getElementById("intentionPage").style.display = "none";
-    document.getElementById("turnoutPeoplePage").style.display = "block";
-  }
+  totalPeople = parseInt(peopleInput);
+  document.getElementById("firstPage").style.display = "none";
+  document.getElementById("secondPage").style.display = "block";
 }
 
-// Toggle contact method options based on checkbox
-document.getElementById("filterByContactMethod").addEventListener("change", function() {
-  const methodOptions = document.getElementById("contactMethodOptions");
-  methodOptions.style.display = this.checked ? "block" : "none";
-});
+// Handle the second page - Generate the plan (outreach or event turnout)
+function generatePlan() {
+  const contactMethod = document.getElementById("contactMethod").value;
+  const goalType = document.querySelector('input[name="goalType"]:checked').value; // Contact or Turnout
+  let contactRate = contactRates[contactMethod];
 
-// Proceed to the next step after filtering
-function proceedToNextStep() {
-  const intention = document.querySelector('input[name="intention"]:checked').value;
-  
-  if (intention === "contactPeople") {
-    // Gather selected contact methods
-    const selectedMethods = [];
-    if (document.getElementById("phone").checked) selectedMethods.push("phone");
-    if (document.getElementById("canvassing").checked) selectedMethods.push("canvassing");
-    if (document.getElementById("tabling").checked) selectedMethods.push("tabling");
-    if (document.getElementById("streetCanvassing").checked) selectedMethods.push("streetCanvassing");
+  let resultText = '';
+  let peopleToContact = 0;
+  let peopleToAsk = 0;
 
-    // Store selected methods for general outreach plan
-    sessionStorage.setItem("selectedMethods", JSON.stringify(selectedMethods));
+  if (goalType === "contact") {
+    // Outreach Plan
+    const adjustedGoal = totalPeople / (contactRate / 100); // Adjust goal by contact rate
+    peopleToAsk = adjustedGoal / (1 - flakeFactor / 100);  // Apply 50% flake factor
+    peopleToContact = Math.round(peopleToAsk);
+    resultText = `
+      <strong>Outreach Plan:</strong><br>
+      - You need to contact approximately ${peopleToContact} people.<br>
+      - Considering a ${flakeFactor}% flake factor, you need to ask ${Math.round(peopleToAsk)} people.<br>
+    `;
+    resultText += generateMethodPlan(contactMethod, peopleToAsk);
+  } else if (goalType === "turnout") {
+    // Event Turnout Plan
+    const turnoutGoal = parseInt(document.getElementById("turnoutGoal").value);
+    const eventDate = document.getElementById("eventDate").value;
 
-    // Now proceed to the outreach plan generation page
-    document.getElementById("filterMethodPage").style.display = "none";
-    document.getElementById("generatePlanPage").style.display = "block";
-  } else if (intention === "turnoutPeople") {
-    // Continue with the existing logic for event turnout
-    document.getElementById("filterMethodPage").style.display = "none";
-    document.getElementById("turnoutPeoplePage").style.display = "block";
-  }
-}
+    // Double the RSVP goal to account for flake factor (50% no-show rate)
+    const rsvpGoal = turnoutGoal * 2;
 
-// Generate the outreach plan based on contact method or without filter
-function generateOutreachPlan() {
-  const totalPeople = document.getElementById("totalPeopleInput").value;
-
-  // If filtering by contact method, apply the selected methods
-  const selectedMethods = JSON.parse(sessionStorage.getItem("selectedMethods")) || [];
-  
-  // Default method distribution
-  const methodDistribution = {
-    phone: 30,      // 30% phonebanking
-    canvassing: 30, // 30% canvassing
-    tabling: 20,    // 20% tabling
-    streetCanvassing: 20  // 20% street canvassing
-  };
-
-  // If filtering, only use the selected methods
-  if (selectedMethods.length > 0) {
-    // Adjust distribution based on selected methods
-    const totalSelectedMethods = selectedMethods.length;
-    const eachMethodPercentage = 100 / totalSelectedMethods;
+    // Calculate people to contact for RSVPs
+    peopleToAsk = rsvpGoal / (1 - flakeFactor / 100);  // Apply 50% flake factor
+    peopleToContact = Math.round(peopleToAsk);
     
-    selectedMethods.forEach(method => {
-      methodDistribution[method] = eachMethodPercentage;
-    });
+    resultText = `
+      <strong>Event Turnout Plan:</strong><br>
+      - Your event turnout goal: ${turnoutGoal} people.<br>
+      - You need to collect ${rsvpGoal} RSVPs to meet your turnout goal.<br>
+      - Considering a ${flakeFactor}% flake factor, you need to ask ${peopleToContact} people.<br>
+      - Event Date: ${eventDate}<br>
+    `;
+    resultText += generateMethodPlan(contactMethod, peopleToAsk);
   }
 
-  // Calculate the number of people for each method
-  const phonePeople = Math.round((totalPeople * methodDistribution.phone) / 100);
-  const canvassingPeople = Math.round((totalPeople * methodDistribution.canvassing) / 100);
-  const tablingPeople = Math.round((totalPeople * methodDistribution.tabling) / 100);
-  const streetCanvassingPeople = Math.round((totalPeople * methodDistribution.streetCanvassing) / 100);
-
-  // Display the outreach plan
-  let resultText = `
-    <strong>Outreach Plan:</strong><br>
-    - You need to contact ${totalPeople} people.<br>
-    - Suggested breakdown:<br>
-    - Phonebanking: ${phonePeople} people<br>
-    - Canvassing: ${canvassingPeople} people<br>
-    - Tabling: ${tablingPeople} people<br>
-    - Street Canvassing: ${streetCanvassingPeople} people<br>
-  `;
-
+  // Show the result
   document.getElementById("result").innerHTML = resultText;
 }
 
-// Generate the event turnout plan
-function generateTurnoutPlan() {
-  const turnoutPeople = document.getElementById("turnoutPeopleInput").value;
-  const eventDate = document.getElementById("eventDate").value;
-
-  if (!turnoutPeople || !eventDate) {
-    alert("Please enter both the number of people and the event date.");
-    return;
+// Generate plan based on contact method
+function generateMethodPlan(contactMethod, peopleToAsk) {
+  let plan = '';
+  if (contactMethod === "phone") {
+    const phonebanks = Math.ceil(peopleToAsk / 100); // 100 people per phonebank
+    plan += `You will need about ${phonebanks} phonebank(s).`;
+  } else if (contactMethod === "canvassing") {
+    const shifts = Math.ceil(peopleToAsk / 20); // 20 doors per canvassing shift
+    plan += `You will need about ${shifts} canvassing shift(s).`;
+  } else if (contactMethod === "tabling") {
+    const tables = Math.ceil(peopleToAsk / 50); // 50 people per table
+    plan += `You will need about ${tables} tabling session(s).`;
+  } else if (contactMethod === "streetCanvassing") {
+    const streetShifts = Math.ceil(peopleToAsk / 30); // 30 people per street canvassing shift
+    plan += `You will need about ${streetShifts} street canvassing shift(s).`;
   }
-
-  // Assuming a default method distribution for turnout plan (similar to outreach plan)
-  const methodDistribution = {
-    phone: 30,      // 30% phonebanking
-    canvassing: 30, // 30% canvassing
-    tabling: 20,    // 20% tabling
-    streetCanvassing: 20  // 20% street canvassing
-  };
-
-  // Calculate the number of people for each method
-  const phonePeople = Math.round((turnoutPeople * methodDistribution.phone) / 100);
-  const canvassingPeople = Math.round((turnoutPeople * methodDistribution.canvassing) / 100);
-  const tablingPeople = Math.round((turnoutPeople * methodDistribution.tabling) / 100);
-  const streetCanvassingPeople = Math.round((turnoutPeople * methodDistribution.streetCanvassing) / 100);
-
-  // Display the turnout plan
-  let turnoutResultText = `
-    <strong>Event Turnout Plan:</strong><br>
-    - You need to turnout ${turnoutPeople} people for your event on ${eventDate}.<br>
-    - Suggested breakdown:<br>
-    - Phonebanking: ${phonePeople} people<br>
-    - Canvassing: ${canvassingPeople} people<br>
-    - Tabling: ${tablingPeople} people<br>
-    - Street Canvassing: ${streetCanvassingPeople} people<br>
-  `;
-
-  document.getElementById("turnoutResult").innerHTML = turnoutResultText;
+  return plan;
 }
