@@ -16,8 +16,8 @@
         <div id="step1" class="page">
             <h2>Welcome! Let's start planning your outreach.</h2>
             <p><strong>Step 1:</strong> Select your intention</p>
-            <button onclick="showContactPeople()">Contact a certain number of people</button>
-            <button onclick="showEventTurnout()">Turnout for an event</button>
+            <button class="btn" onclick="showContactPeople()">Contact a certain number of people</button>
+            <button class="btn" onclick="showEventTurnout()">Turnout for an event</button>
         </div>
 
         <!-- Step 2: Contact a certain number of people -->
@@ -35,7 +35,7 @@
                     <option value="streetCanvassing">Street Canvassing</option>
                 </select>
             </div>
-            <button onclick="calculateContactPlan()">Calculate</button>
+            <button class="btn" onclick="calculateContactPlan()">Calculate</button>
             <div id="contactPlanResult"></div>
         </div>
 
@@ -44,11 +44,11 @@
             <h2>Step 2: Plan your event turnout</h2>
             <input type="number" id="eventGoal" placeholder="Enter turnout goal (e.g., 20)" required>
             <input type="date" id="eventDate" required>
-            <button onclick="calculateEventTurnout()">Calculate Event Turnout</button>
+            <button class="btn" onclick="calculateEventTurnout()">Calculate Event Turnout</button>
             <div id="eventTurnoutResult"></div>
 
             <!-- Step 3: Custom outreach plan -->
-            <button onclick="showCustomOutreach()">Build your custom outreach plan</button>
+            <button class="btn" onclick="showCustomOutreach()">Build your custom outreach plan</button>
         </div>
 
         <!-- Step 3: Custom outreach plan -->
@@ -63,7 +63,7 @@
             <label for="methodStreet">Street Canvassing</label>
             <input type="checkbox" id="methodStreet">
 
-            <button onclick="generateCustomPlan()">Generate Plan</button>
+            <button class="btn" onclick="generateCustomPlan()">Generate Plan</button>
 
             <div id="customPlanResult"></div>
         </div>
