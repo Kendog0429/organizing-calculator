@@ -12,61 +12,59 @@ function showEventTurnout() {
 // Calculate the contact plan for a certain number of people
 function calculateContactPlan() {
   const peopleToContact = parseInt(document.getElementById("peopleToContact").value);
-  const filterContactMethod = document.getElementById("filterContactMethod").checked;
+  const contactMethod = document.getElementById("contactMethod").value;
 
-  // Default rates (adjust as needed)
+  // Default contact rates (adjust as needed)
   const contactRates = {
-      phone: 8,      // 8 people per hour of phonebanking
-      canvassing: 15, // 15 people per hour of canvassing
-      tabling: 25,   // 25 people per hour of tabling
-      streetCanvassing: 10 // 10 people per hour of street canvassing
+      phone: 0.2,      // 20% success rate for phone banking
+      canvassing: 0.4, // 40% success rate for canvassing
+      tabling: 0.3,    // 30% success rate for tabling
+      streetCanvassing: 0.5 // 50% success rate for street canvassing
   };
 
-  let totalPeople = peopleToContact;
-  let contactBreakdown = {};
+  const contactRate = contactRates[contactMethod];
 
-  if (filterContactMethod) {
-      // If the user has selected to filter by contact method, use their selection.
-      const selectedMethod = prompt("Enter the contact method (phone, canvassing, tabling, streetCanvassing): ").toLowerCase();
-      if (contactRates[selectedMethod]) {
-          contactBreakdown[selectedMethod] = totalPeople / contactRates[selectedMethod];
-      } else {
-          alert("Invalid contact method.");
-          return;
-      }
-  } else {
-      // If no filter, split the total people across all methods.
-      for (let method in contactRates) {
-          contactBreakdown[method] = totalPeople / 4; // Evenly distribute
-      }
-  }
+  // Calculate the number of people to contact based on the success rate
+  const peopleToContactWithRate = Math.ceil(peopleToContact / contactRate);
+  const hoursNeeded = Math.ceil(peopleToContactWithRate / 20); // 20 people per hour (as an example rate)
 
-  let resultText = `<strong>Suggested Breakdown:</strong><br>`;
-  for (let method in contactBreakdown) {
-      resultText += `${method.charAt(0).toUpperCase() + method.slice(1)}: ${Math.round(contactBreakdown[method])} people<br>`;
-  }
+  let resultText = `
+      <strong>Suggested Breakdown:</strong><br>
+      - ${capitalizeFirstLetter(contactMethod)}: ${peopleToContactWithRate} people (approx. ${hoursNeeded} hours of work)<br>
+  `;
 
   document.getElementById("contactPlanResult").innerHTML = resultText;
 }
 
-// Calculate the event turnout plan
+// Calculate the event turnout plan with "Organizer Math"
 function calculateEventTurnout() {
   const eventGoal = parseInt(document.getElementById("eventGoal").value);
   const eventDate = document.getElementById("eventDate").value;
 
-  // RSVPs need to be double the event goal due to the flake factor
+  // RSVP calculation (need to collect double the RSVPs to account for the flake rate)
   const rsvpsNeeded = eventGoal * 2;
+
+  // Suggested breakdown based on default methods
+  const contactMethods = ["phone", "canvassing", "tabling", "streetCanvassing"];
   let resultText = `
       <strong>Event Turnout Plan:</strong><br>
       - You need to turnout ${eventGoal} people for your event on ${eventDate}.<br>
       - You need approximately ${rsvpsNeeded} RSVPs to reach that goal.<br>
-      - To account for the 50% flake factor, you will need to contact approximately ${Math.round(rsvpsNeeded * 2)} people.<br>
+      - To account for the Organizer Math (50% flake rate), you will need to contact approximately ${rsvpsNeeded * 2} people.<br>
       <strong>Suggested Breakdown:</strong><br>
-      - Phone: ${Math.round(rsvpsNeeded / 4)} people<br>
-      - Canvassing: ${Math.round(rsvpsNeeded / 4)} people<br>
-      - Tabling: ${Math.round(rsvpsNeeded / 4)} people<br>
-      - Street Canvassing: ${Math.round(rsvpsNeeded / 4)} people<br>
   `;
 
+  // Distribute the total number of people evenly among the methods
+  for (let method of contactMethods) {
+      const methodPeople = Math.ceil(rsvpsNeeded / 4); // Evenly split across methods
+      const methodHours = Math.ceil(methodPeople / 20); // Assume 20 people per hour
+      resultText += `${capitalizeFirstLetter(method)}: ${methodPeople} people (approx. ${methodHours} hours)<br>`;
+  }
+
   document.getElementById("eventTurnoutResult").innerHTML = resultText;
+}
+
+// Helper function to capitalize the first letter of a string
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }

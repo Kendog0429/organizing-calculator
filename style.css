@@ -14,7 +14,7 @@ body {
 
 /* Header styling */
 header {
-  background-color: #1976D2;
+  background-color: #1E88E5; /* Citizen Action of NY blue */
   color: white;
   text-align: center;
   padding: 20px 0;
@@ -39,10 +39,10 @@ header {
 
 h2 {
   font-size: 1.8em;
-  color: #1976D2;
+  color: #1E88E5; /* Citizen Action of NY blue */
 }
 
-input, button {
+input, select, button {
   font-size: 1.2em;
   padding: 10px;
   margin: 10px 0;
@@ -52,7 +52,7 @@ input, button {
 }
 
 button {
-  background-color: #1976D2;
+  background-color: #1E88E5;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -72,6 +72,19 @@ button:hover {
 
 input[type="checkbox"] {
   margin-right: 10px;
+}
+
+/* Dropdown styling */
+.dropdown-container {
+  margin-bottom: 20px;
+}
+
+select {
+  font-size: 1.1em;
+  padding: 10px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 /* Mobile responsiveness */
