@@ -31,6 +31,18 @@
     <div id="contactPeoplePage" class="page" style="display: none;">
       <h2>Step 2: Enter the number of people to contact</h2>
       <input type="number" id="totalPeople" placeholder="Enter number of people (e.g., 100)" required>
+      <label>
+        <input type="checkbox" id="filterByMethod"> Filter by contact method?
+      </label>
+      <div id="contactMethodOptions" style="display: none;">
+        <label for="contactMethod">Choose Contact Method:</label>
+        <select id="contactMethod">
+          <option value="phone">Phonebanking</option>
+          <option value="canvassing">Canvassing</option>
+          <option value="tabling">Tabling</option>
+          <option value="streetCanvassing">Street Canvassing</option>
+        </select>
+      </div>
       <button onclick="generateContactPlan()">Generate Contact Plan</button>
       <div id="result"></div>
     </div>
