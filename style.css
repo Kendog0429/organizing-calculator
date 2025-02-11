@@ -1,167 +1,88 @@
-/* Global styles */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f7f7f7;
+/* Basic reset */
+* {
   margin: 0;
   padding: 0;
-  color: #333;
-}
-
-header {
-  background-color: #003366;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-}
-
-h1 {
-  font-size: 2.5rem;
-  margin: 0;
-}
-
-/* Container for the whole form */
-.container {
-  width: 80%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 30px;
-}
-
-.page {
-  display: none;
-}
-
-/* First page - initial user choice */
-#firstPage {
-  text-align: center;
-}
-
-h2 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-}
-
-label {
-  font-size: 1.2rem;
-  display: block;
-  margin: 15px 0;
-  cursor: pointer;
-}
-
-input[type="radio"] {
-  margin-right: 10px;
-}
-
-/* Input styles */
-input[type="number"], input[type="date"], select {
-  font-size: 1.2rem;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 100%;
   box-sizing: border-box;
 }
 
+/* Body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+/* Header styling */
+header {
+  background-color: #1976D2;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 2.5em;
+}
+
+/* Container styling */
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Page layout styling */
+.page {
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 1.8em;
+  color: #1976D2;
+}
+
+input, button {
+  font-size: 1.2em;
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #1976D2;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1565C0;
+}
+
+#contactPlanResult, #eventTurnoutResult {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #e8f5e9;
+  border-radius: 10px;
+  font-size: 1.2em;
+}
+
 input[type="checkbox"] {
   margin-right: 10px;
 }
 
-button {
-  background-color: #0066cc;
-  color: white;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #004d99;
-}
-
-/* Page titles for steps */
-h2 {
-  color: #003366;
-  font-size: 2rem;
-  margin-bottom: 15px;
-}
-
-/* Result section */
-#result, #turnoutResult {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  margin-top: 20px;
-}
-
-#result strong, #turnoutResult strong {
-  color: #003366;
-}
-
-#result p, #turnoutResult p {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin: 10px 0;
-}
-
-/* Optional filter option (show/hide contact method filter) */
-#contactMethodOptions {
-  margin-top: 15px;
-}
-
-input[type="checkbox"] {
-  margin-bottom: 10px;
-}
-
-/* Media Queries for responsive design */
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .container {
-    width: 90%;
+      padding: 15px;
   }
-
-  h1 {
-    font-size: 2rem;
-  }
-
   h2 {
-    font-size: 1.5rem;
+      font-size: 1.6em;
   }
-
-  label {
-    font-size: 1.1rem;
+  input, button {
+      font-size: 1em;
   }
-
-  button {
-    width: 100%;
-    font-size: 1.1rem;
-  }
-
-  input[type="number"], input[type="date"], select {
-    font-size: 1.1rem;
-  }
-}
-
-/* Specific styling for page transitions (fade in) */
-.page {
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-/* Styling for header input fields */
-input[type="number"]:focus, input[type="date"]:focus, select:focus {
-  outline: none;
-  border-color: #0066cc;
-}
-
-button:disabled {
-  background-color: #b0c4de;
-  cursor: not-allowed;
 }

@@ -1,62 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Citizen Action of New York Organizing Calculator</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Action of New York Organizing Calculator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Citizen Action of New York Organizing Calculator</h1>
-  </header>
+    <header>
+        <h1>Citizen Action of New York Organizing Calculator</h1>
+    </header>
 
-  <div class="container">
-    <!-- First Page -->
-    <div id="firstPage" class="page">
-      <h2>Welcome! Let's start planning your outreach.</h2>
-      <p><strong>Step 1:</strong> What is your goal?</p>
-      <div>
-        <label>
-          <input type="radio" name="intention" value="contactPeople" checked> Contact a certain number of people
-        </label>
-        <label>
-          <input type="radio" name="intention" value="turnoutEvent"> Turnout for an event
-        </label>
-      </div>
-      <button onclick="nextStep()">Next</button>
+    <div class="container">
+        <!-- Step 1: Select Intention -->
+        <div id="step1" class="page">
+            <h2>Welcome! Let's start planning your outreach.</h2>
+            <p><strong>Step 1:</strong> Select your intention</p>
+            <button onclick="showContactPeople()">Contact a certain number of people</button>
+            <button onclick="showEventTurnout()">Turnout for an event</button>
+        </div>
+
+        <!-- Step 2: Contact a certain number of people -->
+        <div id="contactPeople" class="page" style="display:none;">
+            <h2>Step 2: How many people do you want to contact?</h2>
+            <input type="number" id="peopleToContact" placeholder="Enter number of people (e.g., 100)" required>
+            <label for="filterContactMethod">Do you want to filter by contact method?</label>
+            <input type="checkbox" id="filterContactMethod">
+            <button onclick="calculateContactPlan()">Calculate</button>
+            <div id="contactPlanResult"></div>
+        </div>
+
+        <!-- Step 2: Event turnout -->
+        <div id="eventTurnout" class="page" style="display:none;">
+            <h2>Step 2: Plan your event turnout</h2>
+            <input type="number" id="eventGoal" placeholder="Enter turnout goal (e.g., 20)" required>
+            <input type="date" id="eventDate" required>
+            <button onclick="calculateEventTurnout()">Calculate Event Turnout</button>
+            <div id="eventTurnoutResult"></div>
+        </div>
+
     </div>
 
-    <!-- Second Page (for contact people) -->
-    <div id="contactPeoplePage" class="page" style="display: none;">
-      <h2>Step 2: Enter the number of people to contact</h2>
-      <input type="number" id="totalPeople" placeholder="Enter number of people (e.g., 100)" required>
-      <label>
-        <input type="checkbox" id="filterByMethod"> Filter by contact method?
-      </label>
-      <div id="contactMethodOptions" style="display: none;">
-        <label for="contactMethod">Choose Contact Method:</label>
-        <select id="contactMethod">
-          <option value="phone">Phonebanking</option>
-          <option value="canvassing">Canvassing</option>
-          <option value="tabling">Tabling</option>
-          <option value="streetCanvassing">Street Canvassing</option>
-        </select>
-      </div>
-      <button onclick="generateContactPlan()">Generate Contact Plan</button>
-      <div id="result"></div>
-    </div>
-
-    <!-- Second Page (for event turnout) -->
-    <div id="turnoutEventPage" class="page" style="display: none;">
-      <h2>Step 2: Turnout Plan</h2>
-      <input type="number" id="turnoutGoal" placeholder="Event turnout goal (e.g., 20)" required>
-      <input type="date" id="eventDate" required>
-      <button onclick="generateTurnoutPlan()">Generate Turnout Plan</button>
-      <div id="turnoutResult"></div>
-    </div>
-  </div>
-
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

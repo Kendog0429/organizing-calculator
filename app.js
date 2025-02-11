@@ -1,85 +1,72 @@
-let totalPeople = 0;
-const flakeFactor = 50; // Flake factor for RSVPs
-const contactRates = {
-  phone: 8, // Phonebanking rate
-  canvassing: 15, // Canvassing rate
-  tabling: 25, // Tabling rate
-  streetCanvassing: 10, // Street Canvassing rate
-};
-
-// Next step based on user's intention
-function nextStep() {
-  const intention = document.querySelector('input[name="intention"]:checked').value;
-  
-  if (intention === 'contactPeople') {
-    document.getElementById("firstPage").style.display = "none";
-    document.getElementById("contactPeoplePage").style.display = "block";
-  } else if (intention === 'turnoutEvent') {
-    document.getElementById("firstPage").style.display = "none";
-    document.getElementById("turnoutEventPage").style.display = "block";
-  }
+// Event listener to trigger step1 options
+function showContactPeople() {
+  document.getElementById("step1").style.display = "none";
+  document.getElementById("contactPeople").style.display = "block";
 }
 
-// Generate contact plan based on user input
-function generateContactPlan() {
-  const peopleInput = document.getElementById("totalPeople").value;
-  
-  if (!peopleInput || peopleInput <= 0) {
-    alert("Please enter a valid number of people to contact.");
-    return;
-  }
+function showEventTurnout() {
+  document.getElementById("step1").style.display = "none";
+  document.getElementById("eventTurnout").style.display = "block";
+}
 
-  totalPeople = parseInt(peopleInput);
-  const filterByMethod = document.getElementById("filterByMethod").checked;
-  const contactMethod = document.getElementById("contactMethod") ? document.getElementById("contactMethod").value : null;
-  
-  let resultText = "<strong>Suggested Breakdown:</strong><br>";
+// Calculate the contact plan for a certain number of people
+function calculateContactPlan() {
+  const peopleToContact = parseInt(document.getElementById("peopleToContact").value);
+  const filterContactMethod = document.getElementById("filterContactMethod").checked;
 
-  if (filterByMethod && contactMethod) {
-    // Calculate based on selected method
-    const rate = contactRates[contactMethod];
-    const peopleToContact = Math.ceil(totalPeople / (rate / 100)); // Calculate how many to contact based on contact method rate
-    resultText += `${contactMethod.charAt(0).toUpperCase() + contactMethod.slice(1)}: ${peopleToContact} people<br>`;
+  // Default rates (adjust as needed)
+  const contactRates = {
+      phone: 8,      // 8 people per hour of phonebanking
+      canvassing: 15, // 15 people per hour of canvassing
+      tabling: 25,   // 25 people per hour of tabling
+      streetCanvassing: 10 // 10 people per hour of street canvassing
+  };
+
+  let totalPeople = peopleToContact;
+  let contactBreakdown = {};
+
+  if (filterContactMethod) {
+      // If the user has selected to filter by contact method, use their selection.
+      const selectedMethod = prompt("Enter the contact method (phone, canvassing, tabling, streetCanvassing): ").toLowerCase();
+      if (contactRates[selectedMethod]) {
+          contactBreakdown[selectedMethod] = totalPeople / contactRates[selectedMethod];
+      } else {
+          alert("Invalid contact method.");
+          return;
+      }
   } else {
-    // Calculate for all methods
-    Object.keys(contactRates).forEach(method => {
-      const rate = contactRates[method];
-      const peopleToContact = Math.ceil(totalPeople / (rate / 100)); // Calculate how many to contact based on method rate
-      resultText += `${method.charAt(0).toUpperCase() + method.slice(1)}: ${peopleToContact} people<br>`;
-    });
+      // If no filter, split the total people across all methods.
+      for (let method in contactRates) {
+          contactBreakdown[method] = totalPeople / 4; // Evenly distribute
+      }
   }
 
-  // No flake factor for contact people, just the contact method breakdown
-  document.getElementById("result").innerHTML = resultText;
+  let resultText = `<strong>Suggested Breakdown:</strong><br>`;
+  for (let method in contactBreakdown) {
+      resultText += `${method.charAt(0).toUpperCase() + method.slice(1)}: ${Math.round(contactBreakdown[method])} people<br>`;
+  }
+
+  document.getElementById("contactPlanResult").innerHTML = resultText;
 }
 
-// Generate event turnout plan based on user input
-function generateTurnoutPlan() {
-  const turnoutGoal = document.getElementById("turnoutGoal").value;
+// Calculate the event turnout plan
+function calculateEventTurnout() {
+  const eventGoal = parseInt(document.getElementById("eventGoal").value);
   const eventDate = document.getElementById("eventDate").value;
 
-  if (!turnoutGoal || !eventDate) {
-    alert("Please enter all fields.");
-    return;
-  }
-
-  const neededRSVPs = turnoutGoal * 2; // You need double the turnout goal in RSVPs
-  const adjustedGoal = neededRSVPs / (100 - flakeFactor);
-
+  // RSVPs need to be double the event goal due to the flake factor
+  const rsvpsNeeded = eventGoal * 2;
   let resultText = `
-    <strong>Event Turnout Plan:</strong><br>
-    - You need to turnout ${turnoutGoal} people for your event on ${eventDate}.<br>
-    - You need approximately ${Math.round(neededRSVPs)} RSVPs to reach that goal.<br>
-    - To account for the 50% flake factor, you will need to contact approximately ${Math.round(adjustedGoal)} people.<br>
-    <strong>Suggested Breakdown:</strong><br>
+      <strong>Event Turnout Plan:</strong><br>
+      - You need to turnout ${eventGoal} people for your event on ${eventDate}.<br>
+      - You need approximately ${rsvpsNeeded} RSVPs to reach that goal.<br>
+      - To account for the 50% flake factor, you will need to contact approximately ${Math.round(rsvpsNeeded * 2)} people.<br>
+      <strong>Suggested Breakdown:</strong><br>
+      - Phone: ${Math.round(rsvpsNeeded / 4)} people<br>
+      - Canvassing: ${Math.round(rsvpsNeeded / 4)} people<br>
+      - Tabling: ${Math.round(rsvpsNeeded / 4)} people<br>
+      - Street Canvassing: ${Math.round(rsvpsNeeded / 4)} people<br>
   `;
 
-  // Break down across all contact methods
-  Object.keys(contactRates).forEach(method => {
-    const rate = contactRates[method];
-    const peopleToContact = Math.ceil(adjustedGoal / (rate / 100));
-    resultText += `${method.charAt(0).toUpperCase() + method.slice(1)}: ${peopleToContact} people<br>`;
-  });
-
-  document.getElementById("turnoutResult").innerHTML = resultText;
+  document.getElementById("eventTurnoutResult").innerHTML = resultText;
 }
