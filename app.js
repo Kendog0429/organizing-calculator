@@ -1,111 +1,105 @@
-// Success rates for each method
+const flakeFactor = 50; // 50% no-show rate
+
+// Contact method success rates
 const contactRates = {
-  phone: 8,  // Phonebanking success rate (percentage)
-  canvassing: 15,  // Canvassing success rate
-  tabling: 25,  // Tabling success rate
-  streetCanvassing: 10  // Street Canvassing success rate
+  phone: 8, // Phonebanking: 8%
+  canvassing: 15, // Canvassing: 15%
+  tabling: 25, // Tabling: 25%
+  streetCanvassing: 10 // Street Canvassing: 10%
 };
 
-// Handle the change of goal type (contact people or event turnout)
-function handleGoalTypeChange() {
-  const goalType = document.getElementById("goalType").value;
-  
-  if (goalType === "contactPeople") {
-    document.getElementById("contactPeopleSection").style.display = "block";
-    document.getElementById("eventTurnoutSection").style.display = "none";
-  } else {
-    document.getElementById("contactPeopleSection").style.display = "none";
-    document.getElementById("eventTurnoutSection").style.display = "block";
-  }
+// Function to move between steps
+function nextStep(stepNumber) {
+  const allSteps = document.querySelectorAll('.step');
+  allSteps.forEach(step => step.style.display = 'none'); // Hide all steps
+  document.getElementById(`step${stepNumber}`).style.display = 'block'; // Show the selected step
 }
 
-// Step 1 - Generate a contact plan without filtering
-function generateContactPlanWithoutFilter() {
-  const peopleToContact = document.getElementById("peopleToContactInput").value;
+// Handle contact people process
+function calculateContactPeople() {
+  const numPeople = parseInt(document.getElementById("contactPeopleNumber").value);
+  const filterByContactMethod = document.getElementById("filterContactMethod").checked;
+  let contactMethod = document.getElementById("contactMethod").value;
 
-  if (!peopleToContact || peopleToContact <= 0) {
-    alert("Please enter a valid number of people.");
+  if (!numPeople || numPeople <= 0) {
+    alert("Please enter a valid number of people to contact.");
     return;
   }
 
-  const targetPeople = parseInt(peopleToContact);
-  let totalCalculated = 0;
   let breakdown = {};
+  let totalContacts = 0;
 
-  // Calculate the number of people to contact based on the contact method success rate
-  for (let method in contactRates) {
-    let successRate = contactRates[method] / 100;
-    let contactsNeeded = Math.ceil(targetPeople / successRate); // Account for success rate
-    breakdown[method] = contactsNeeded;
-    totalCalculated += contactsNeeded;
+  // If filtering by contact method, only use the selected method
+  if (filterByContactMethod) {
+    const rate = contactRates[contactMethod];
+    breakdown[contactMethod] = Math.ceil(numPeople / (rate / 100));
+    totalContacts = breakdown[contactMethod];
+  } else {
+    // Breakdown across all methods
+    for (const method in contactRates) {
+      const rate = contactRates[method];
+      breakdown[method] = Math.ceil(numPeople / (rate / 100));
+      totalContacts += breakdown[method];
+    }
   }
 
-  // Show the suggested breakdown
-  let resultText = `<strong>Suggested Breakdown:</strong><br>`;
-  for (let method in breakdown) {
+  const adjustedContacts = Math.ceil(totalContacts * (1 + flakeFactor / 100)); // Adjusted for flake factor
+
+  // Display results
+  let resultText = `
+    <strong>Suggested Breakdown:</strong><br>
+    Total people to contact: ${numPeople}<br>
+    Total adjusted for flake rate: ${adjustedContacts}<br>
+    <strong>Breakdown by Method:</strong><br>
+  `;
+  
+  for (const method in breakdown) {
     resultText += `${method.charAt(0).toUpperCase() + method.slice(1)}: ${breakdown[method]} people<br>`;
   }
 
-  resultText += `<br>Total people to contact: ${totalCalculated}`;
-  document.getElementById("result").innerHTML = resultText;
+  document.getElementById("resultText").innerHTML = resultText;
+  nextStep(4);
 }
 
-// Step 2 - Generate a contact plan with filtering by contact method
-function generateContactPlanWithFilter() {
-  const peopleToContact = document.getElementById("peopleToContactInput").value;
-  const selectedMethod = document.getElementById("contactMethodFilter").value;
+// Handle event turnout calculation
+function calculateEventTurnout() {
+  const turnoutGoal = parseInt(document.getElementById("turnoutGoal").value);
+  const eventDate = document.getElementById("eventDate").value;
+  const coreLeaders = parseInt(document.getElementById("coreLeaders").value);
+  const coreLeaderNames = document.getElementById("coreLeaderNames").value;
 
-  if (!peopleToContact || peopleToContact <= 0 || !selectedMethod) {
-    alert("Please enter a valid number of people and select a contact method.");
+  if (!turnoutGoal || turnoutGoal <= 0) {
+    alert("Please enter a valid turnout goal.");
     return;
   }
 
-  const targetPeople = parseInt(peopleToContact);
-  const successRate = contactRates[selectedMethod] / 100;
-  const contactsNeeded = Math.ceil(targetPeople / successRate); // Account for success rate
+  const rsvpsNeeded = turnoutGoal * 2; // Organizing Math (Need double the people for RSVPs)
+  const adjustedRSVPs = Math.ceil(rsvpsNeeded * (1 + flakeFactor / 100)); // Adjusted for flake rate
+  const weeksUntilEvent = parseInt(document.getElementById("weeksUntilEvent").value);
 
-  let resultText = `<strong>Breakdown for ${selectedMethod.charAt(0).toUpperCase() + selectedMethod.slice(1)}:</strong><br>`;
-  resultText += `You need to contact ${contactsNeeded} people to reach ${targetPeople} people.`;
+  const rsvpsPerWeek = Math.ceil(rsvpsNeeded / weeksUntilEvent); // RSVPs per week
 
-  document.getElementById("result").innerHTML = resultText;
-}
+  const volunteerShifts = Math.ceil(rsvpsNeeded / 10); // 10 people per volunteer shift
+  const volunteerCalls = volunteerShifts * 10; // 10 volunteer calls per shift
 
-// Step 3 - Generate event turnout plan with flake factor
-function generateEventTurnoutPlan() {
-  const eventTurnoutGoalInput = document.getElementById("eventTurnoutGoalInput").value;
-  const eventDate = document.getElementById("eventDateInput").value;
-
-  if (!eventTurnoutGoalInput || eventTurnoutGoalInput <= 0 || !eventDate) {
-    alert("Please enter a valid turnout goal and event date.");
-    return;
-  }
-
-  const turnoutGoal = parseInt(eventTurnoutGoalInput);
-  const adjustedGoal = turnoutGoal * 2; // Apply the flake factor (50% no-show)
-
-  let totalCalculated = 0;
-  let breakdown = {};
-
-  // Calculate breakdown for each contact method
-  for (let method in contactRates) {
-    let successRate = contactRates[method] / 100;
-    let contactsNeeded = Math.ceil(adjustedGoal / successRate); // Account for success rate
-    breakdown[method] = contactsNeeded;
-    totalCalculated += contactsNeeded;
-  }
-
-  // Show the event turnout plan
   let resultText = `
-    <strong>Event Turnout Plan:</strong><br>
-    - You need to turnout ${turnoutGoal} people for your event on ${eventDate}.<br>
-    - Suggested breakdown:<br>
+    <strong>Event Turnout Plan for ${eventDate}:</strong><br>
+    You need ${turnoutGoal} people to attend the event.<br>
+    You need ${rsvpsNeeded} RSVPs (since half may not show up).<br>
+    Total adjusted for flake rate: ${adjustedRSVPs} RSVPs.<br><br>
+    
+    <strong>Breakdown:</strong><br>
+    - You need to contact ${rsvpsNeeded} people<br>
+    - Number of weeks until event: ${weeksUntilEvent}<br>
+    - RSVPs per week: ${rsvpsPerWeek}<br>
+    - Number of volunteer shifts: ${volunteerShifts}<br>
+    - Number of volunteer calls: ${volunteerCalls}<br>
   `;
 
-  for (let method in breakdown) {
-    resultText += `${method.charAt(0).toUpperCase() + method.slice(1)}: ${breakdown[method]} people<br>`;
-  }
+  document.getElementById("resultText").innerHTML = resultText;
+  nextStep(4);
+}
 
-  resultText += `<br>Total people to contact (adjusted for flake rate): ${totalCalculated}`;
-
-  document.getElementById("result").innerHTML = resultText;
+function goBack() {
+  nextStep(1);
 }
