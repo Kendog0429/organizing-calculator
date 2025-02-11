@@ -1,17 +1,20 @@
 // Function to show the contact people page
 function showContactPeople() {
+  console.log("Show Contact People page");
   document.getElementById("step1").style.display = "none";
   document.getElementById("contactPeople").style.display = "block";
 }
 
 // Function to show the event turnout page
 function showEventTurnout() {
+  console.log("Show Event Turnout page");
   document.getElementById("step1").style.display = "none";
   document.getElementById("eventTurnout").style.display = "block";
 }
 
 // Function to show the custom outreach plan page
 function showCustomOutreach() {
+  console.log("Show Custom Outreach page");
   document.getElementById("eventTurnout").style.display = "none";
   document.getElementById("customOutreach").style.display = "block";
 }
@@ -20,6 +23,8 @@ function showCustomOutreach() {
 function calculateContactPlan() {
   const peopleToContact = parseInt(document.getElementById("peopleToContact").value);
   const contactMethod = document.getElementById("contactMethod").value;
+
+  console.log("Calculating Contact Plan...");
 
   // Default contact rates (adjust as needed)
   const contactRates = {
