@@ -24,6 +24,11 @@ function calculateContactPlan() {
   const peopleToContact = parseInt(document.getElementById("peopleToContact").value);
   const contactMethod = document.getElementById("contactMethod").value;
 
+  if (isNaN(peopleToContact) || peopleToContact <= 0) {
+      alert("Please enter a valid number of people.");
+      return;
+  }
+
   console.log(`Calculating Contact Plan for ${peopleToContact} people using ${contactMethod}...`);
 
   // Default contact rates (adjust as needed)
@@ -35,6 +40,11 @@ function calculateContactPlan() {
   };
 
   const contactRate = contactRates[contactMethod];
+
+  if (!contactRate) {
+      alert("Please select a valid contact method.");
+      return;
+  }
 
   // Calculate the number of people to contact based on the success rate
   const peopleToContactWithRate = Math.ceil(peopleToContact / contactRate);
@@ -53,6 +63,11 @@ function calculateEventTurnout() {
   const eventGoal = parseInt(document.getElementById("eventGoal").value);
   const eventDate = document.getElementById("eventDate").value;
 
+  if (isNaN(eventGoal) || eventGoal <= 0) {
+      alert("Please enter a valid event turnout goal.");
+      return;
+  }
+
   // RSVP calculation (need to collect double the RSVPs to account for the flake rate)
   const rsvpsNeeded = eventGoal * 2;
 
@@ -60,43 +75,4 @@ function calculateEventTurnout() {
   const contactMethods = ["phone", "canvassing", "tabling", "streetCanvassing"];
   let resultText = `
       <strong>Event Turnout Plan:</strong><br>
-      - You need to turnout ${eventGoal} people for your event on ${eventDate}.<br>
-      - You need approximately ${rsvpsNeeded} RSVPs to reach that goal.<br>
-      - To account for the Organizer Math (50% flake rate), you will need to contact approximately ${rsvpsNeeded} people.<br>
-      <strong>Suggested Breakdown:</strong><br>
-  `;
-
-  // Default breakdown
-  contactMethods.forEach(method => {
-      resultText += `- ${capitalizeFirstLetter(method)}: ${Math.ceil(rsvpsNeeded / 4)} people (approx. 1 hour)<br>`;
-  });
-
-  document.getElementById("eventTurnoutResult").innerHTML = resultText;
-}
-
-// Helper function to capitalize first letter
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-// Generate custom outreach plan based on selected contact methods
-function generateCustomPlan() {
-  const selectedMethods = [];
-  const methods = ["Phone", "Canvassing", "Tabling", "StreetCanvassing"];
-  methods.forEach(method => {
-      if (document.getElementById(`method${method}`).checked) {
-          selectedMethods.push(method);
-      }
-  });
-
-  let resultText = "<strong>Custom Outreach Plan:</strong><br>";
-  if (selectedMethods.length > 0) {
-      selectedMethods.forEach(method => {
-          resultText += `- ${method}: Apply specific contact rates here...<br>`;
-      });
-  } else {
-      resultText += "No contact methods selected!";
-  }
-
-  document.getElementById("customPlanResult").innerHTML = resultText;
-}
+      - You need to turnout ${eventGoal} people
