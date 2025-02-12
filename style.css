@@ -68,7 +68,7 @@ strong {
   display: none;
 }
 
-#contactPeople, #eventTurnout, #customOutreach {
+#contactPeople, #eventTurnout {
   display: block;
 }
 
@@ -82,8 +82,8 @@ input[type="checkbox"] {
 }
 
 /* Larger font for suggested breakdown */
-#eventTurnoutResult {
-  font-size: 1.8em; /* Increased from 1.5em */
+#eventTurnoutResult, #contactPlanResult {
+  font-size: 2em; /* Increased font size for better readability */
   line-height: 1.8;
   margin-top: 20px;
 }

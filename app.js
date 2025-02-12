@@ -39,56 +39,39 @@ function calculateEventTurnout() {
   });
 
   document.getElementById("eventTurnoutResult").innerHTML = resultText;
-
-  // Show the Next Step button
-  document.getElementById("nextStepBtn").style.display = "block";
-}
-
-// Function to navigate to the next step for custom outreach
-function showCustomOutreach() {
-  document.getElementById("eventTurnout").style.display = "none";
-  document.getElementById("customOutreach").style.display = "block";
-}
-
-// Function to generate a custom outreach plan based on selected methods
-function generateCustomPlan() {
-  const selectedMethods = [];
-  if (document.getElementById("methodPhone").checked) selectedMethods.push("Phone");
-  if (document.getElementById("methodCanvassing").checked) selectedMethods.push("Canvassing");
-  if (document.getElementById("methodTabling").checked) selectedMethods.push("Tabling");
-  if (document.getElementById("methodStreet").checked) selectedMethods.push("Street Canvassing");
-
-  if (selectedMethods.length === 0) {
-      alert("Please select at least one contact method.");
-      return;
-  }
-
-  let resultText = `<strong>Custom Outreach Plan:</strong><br>`;
-  selectedMethods.forEach(method => {
-      resultText += `- ${method}: You can use this method to reach out to people.<br>`;
-  });
-
-  document.getElementById("customPlanResult").innerHTML = resultText;
-}
-
-// Helper function to capitalize the first letter
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 // Calculate the contact plan for a certain number of people
 function calculateContactPlan() {
   const peopleToContact = parseInt(document.getElementById("peopleToContact").value);
   const contactMethods = Array.from(document.getElementById("contactMethod").selectedOptions).map(option => option.value);
+
   if (isNaN(peopleToContact) || peopleToContact <= 0) {
       alert("Please enter a valid number of people to contact.");
       return;
   }
 
+  const contactRates = {
+      phone: 0.2,           // Contact rate: 20% for phone
+      canvassing: 0.4,      // Contact rate: 40% for canvassing
+      tabling: 0.3,         // Contact rate: 30% for tabling
+      streetCanvassing: 0.5 // Contact rate: 50% for street canvassing
+  };
+
   let resultText = `<strong>Contact Plan:</strong><br>`;
+  let totalPeopleToContact = 0;
+
   contactMethods.forEach(method => {
-      resultText += `- ${capitalizeFirstLetter(method)}: You will need to contact approximately ${Math.ceil(peopleToContact / contactMethods.length)} people using this method.<br>`;
+      const contactRate = contactRates[method];
+      const peopleToContactWithRate = Math.ceil(peopleToContact / contactRate);
+      resultText += `- ${capitalizeFirstLetter(method)}: You will need to contact approximately ${peopleToContactWithRate} people using this method.<br>`;
+      totalPeopleToContact += peopleToContactWithRate;
   });
 
   document.getElementById("contactPlanResult").innerHTML = resultText;
+}
+
+// Helper function to capitalize the first letter
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
