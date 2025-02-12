@@ -75,4 +75,39 @@ function calculateEventTurnout() {
   const contactMethods = ["phone", "canvassing", "tabling", "streetCanvassing"];
   let resultText = `
       <strong>Event Turnout Plan:</strong><br>
-      - You need to turnout ${eventGoal} people
+      - You need to turnout ${eventGoal} people for your event on ${eventDate}.<br>
+      - You need approximately ${rsvpsNeeded} RSVPs to reach that goal.<br>
+      - To account for the Organizer Math (50% flake rate), you will need to contact approximately ${rsvpsNeeded} people.<br>
+      <strong>Suggested Breakdown:</strong><br>
+  `;
+
+  // Default breakdown
+  contactMethods.forEach(method => {
+      resultText += `- ${capitalizeFirstLetter(method)}: ${Math.ceil(rsvpsNeeded / 4)} people (approx. 1 hour)<br>`;
+  });
+
+  document.getElementById("eventTurnoutResult").innerHTML = resultText;
+}
+
+// Helper function to capitalize first letter
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Generate custom outreach plan based on selected contact methods
+function generateCustomPlan() {
+  const selectedMethods = [];
+  const methods = ["Phone", "Canvassing", "Tabling", "StreetCanvassing"];
+  methods.forEach(method => {
+      if (document.getElementById(`method${method}`).checked) {
+          selectedMethods.push(method);
+      }
+  });
+
+  let resultText = "<strong>Your Custom Outreach Plan:</strong><br>";
+  selectedMethods.forEach(method => {
+      resultText += `- ${method}: Plan according to the rate of success.<br>`;
+  });
+
+  document.getElementById("customPlanResult").innerHTML = resultText;
+}
