@@ -34,14 +34,11 @@
         <div id="contactPeople" class="page" style="display:none;">
             <h2>Step 2: How many people do you want to contact?</h2>
             <input type="number" id="peopleToContact" placeholder="Enter number of people (e.g., 100)" required>
-            <div class="dropdown-container">
-                <label for="contactMethod">Choose contact methods:</label>
-                <select id="contactMethod" multiple>
-                    <option value="phone">Phone</option>
-                    <option value="canvassing">Canvassing</option>
-                    <option value="tabling">Tabling</option>
-                    <option value="streetCanvassing">Street Canvassing</option>
-                </select>
+            <div class="checkbox-container">
+                <label><input type="checkbox" id="methodPhone"> Phone</label><br>
+                <label><input type="checkbox" id="methodCanvassing"> Canvassing</label><br>
+                <label><input type="checkbox" id="methodTabling"> Tabling</label><br>
+                <label><input type="checkbox" id="methodStreet"> Street Canvassing</label><br>
             </div>
             <button class="btn" onclick="calculateContactPlan()">Calculate</button>
             <div id="contactPlanResult"></div>
@@ -50,14 +47,10 @@
         <!-- Step 3: Custom Outreach Plan -->
         <div id="customOutreach" class="page" style="display:none;">
             <h2>Step 3: Create your custom outreach plan</h2>
-            <label for="methodPhone">Phone</label>
-            <input type="checkbox" id="methodPhone">
-            <label for="methodCanvassing">Canvassing</label>
-            <input type="checkbox" id="methodCanvassing">
-            <label for="methodTabling">Tabling</label>
-            <input type="checkbox" id="methodTabling">
-            <label for="methodStreet">Street Canvassing</label>
-            <input type="checkbox" id="methodStreet">
+            <label><input type="checkbox" id="methodPhone"> Phone</label><br>
+            <label><input type="checkbox" id="methodCanvassing"> Canvassing</label><br>
+            <label><input type="checkbox" id="methodTabling"> Tabling</label><br>
+            <label><input type="checkbox" id="methodStreet"> Street Canvassing</label><br>
 
             <button class="btn" onclick="generateCustomPlan()">Generate Plan</button>
             <div id="customPlanResult"></div>

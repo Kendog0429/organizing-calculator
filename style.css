@@ -1,128 +1,92 @@
-/* General Styles */
+/* General Layout */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+  background-color: #f4f7f6;
+  color: #333;
   margin: 0;
   padding: 0;
-  color: #333;
 }
 
+/* Header Styling */
 header {
-  background-color: #005f73;
+  background-color: #4CAF50;
   color: white;
-  text-align: center;
   padding: 20px 0;
+  text-align: center;
 }
 
 h1 {
-  font-size: 2em;
   margin: 0;
+  font-size: 32px;
 }
 
+/* Container for content */
 .container {
-  max-width: 900px;
-  margin: 30px auto;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-  font-size: 1.8em;
-  color: #333;
-}
-
-/* Button Styles */
-button.btn {
-  background-color: #0099cc;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1em;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-button.btn:hover {
-  background-color: #0077aa;
-}
-
-/* Step Pages */
+/* Page Styling */
 .page {
   display: none;
 }
 
-input[type="number"], input[type="date"], select {
-  padding: 10px;
-  font-size: 1em;
-  margin: 10px 0;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-input[type="number"]:focus, input[type="date"]:focus, select:focus {
-  border-color: #0099cc;
-}
-
-.dropdown-container {
-  margin: 20px 0;
-}
-
-select[multiple] {
-  height: 100px;
-}
-
-#eventTurnoutResult {
+/* Buttons */
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
   margin-top: 20px;
+  display: inline-block;
+  text-align: center;
 }
 
-#eventTurnoutResult, #contactPlanResult, #customPlanResult {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f0f8ff;
-  border-radius: 5px;
-  border: 1px solid #d6e8f5;
+.btn:hover {
+  background-color: #45a049;
 }
 
 #nextStepBtn {
   margin-top: 20px;
-  display: none;
 }
 
-/* Larger font for breakdown text */
-#eventTurnoutResult {
-  font-size: 1.5em;
+/* Input Fields */
+input[type="number"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
-/* Custom outreach checkbox styling */
-label {
-  font-size: 1.2em;
-  margin-right: 10px;
+/* Checkboxes and labels */
+.checkbox-container {
+  margin-top: 20px;
 }
 
-input[type="checkbox"] {
-  margin: 5px 10px;
+.checkbox-container label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .container {
-      padding: 15px;
-  }
+/* Result Styling */
+#eventTurnoutResult,
+#contactPlanResult,
+#customPlanResult {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  h2 {
-      font-size: 1.6em;
-  }
-
-  input[type="number"], input[type="date"], select {
-      font-size: 0.9em;
-  }
-
-  button.btn {
-      font-size: 0.9em;
-      padding: 8px 15px;
-  }
+strong {
+  font-weight: bold;
 }
