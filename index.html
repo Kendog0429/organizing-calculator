@@ -1,57 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Outreach Plan Calculator</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Action Organizing Calculator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Citizen Action of New York Outreach Plan Calculator</h1>
-  </header>
+    <header>
+        <h1>Citizen Action of New York Organizing Calculator</h1>
+    </header>
 
-  <div class="container">
-    <!-- Step 1: Select what the user wants to do -->
-    <div class="step">
-      <label for="contactChoice">What would you like to do today?</label>
-      <select id="contactChoice" onchange="toggleSections()">
-        <option value="contactPeople">Contact a Certain Number of People</option>
-        <option value="eventTurnout">Event Turnout</option>
-      </select>
+    <div class="container">
+        <!-- Step 1: Choose Calculation Type -->
+        <div id="step1">
+            <h2>Welcome! Let's plan your outreach.</h2>
+            <p><strong>Step 1:</strong> Choose the type of calculation you want to perform.</p>
+            <button class="btn" onclick="showEventTurnout()">Event Turnout</button>
+            <button class="btn" onclick="showContactPeople()">Contact a Set Number of People</button>
+        </div>
+
+        <!-- Step 2: Event Turnout -->
+        <div id="eventTurnout" class="page" style="display:none;">
+            <h2>Step 2: Plan your event turnout</h2>
+            <input type="number" id="eventGoal" placeholder="Enter turnout goal (e.g., 20)" required>
+            <input type="date" id="eventDate" required>
+            <button class="btn" onclick="calculateEventTurnout()">Calculate Event Turnout</button>
+            <div id="eventTurnoutResult"></div>
+            <button class="btn" id="nextStepBtn" style="display:none;" onclick="showCustomOutreach()">Next Step: Build Custom Outreach Plan</button>
+        </div>
+
+        <!-- Step 2: Contact a Set Number of People -->
+        <div id="contactPeople" class="page" style="display:none;">
+            <h2>Step 2: How many people do you want to contact?</h2>
+            <input type="number" id="peopleToContact" placeholder="Enter number of people (e.g., 100)" required>
+            <div class="dropdown-container">
+                <label for="contactMethod">Choose a contact method:</label>
+                <select id="contactMethod" multiple>
+                    <option value="phone">Phone</option>
+                    <option value="canvassing">Canvassing</option>
+                    <option value="tabling">Tabling</option>
+                    <option value="streetCanvassing">Street Canvassing</option>
+                </select>
+            </div>
+            <button class="btn" onclick="calculateContactPlan()">Calculate</button>
+            <div id="contactPlanResult"></div>
+        </div>
+
+        <!-- Step 3: Custom Outreach Plan -->
+        <div id="customOutreach" class="page" style="display:none;">
+            <h2>Step 3: Create your custom outreach plan</h2>
+            <label for="methodPhone">Phone</label>
+            <input type="checkbox" id="methodPhone">
+            <label for="methodCanvassing">Canvassing</label>
+            <input type="checkbox" id="methodCanvassing">
+            <label for="methodTabling">Tabling</label>
+            <input type="checkbox" id="methodTabling">
+            <label for="methodStreet">Street Canvassing</label>
+            <input type="checkbox" id="methodStreet">
+
+            <button class="btn" onclick="generateCustomPlan()">Generate Plan</button>
+            <div id="customPlanResult"></div>
+        </div>
     </div>
 
-    <!-- Step: Contact a certain number of people -->
-    <div id="contactPeopleSection" class="step">
-      <h2>Step 1: Contact a Certain Number of People</h2>
-      <label for="peopleToContact">How many people would you like to contact?</label>
-      <input type="number" id="peopleToContact" min="1" />
-      <button onclick="calculateContactPlan()">Calculate</button>
-      
-      <div id="contactPlanResult"></div>
-
-      <!-- Optional Step: Build Custom Outreach Plan -->
-      <div id="buildCustomPlan">
-        <label for="buildOutreachPlan">Would you like to build a custom outreach plan based on contact methods?</label>
-        <input type="checkbox" id="buildOutreachPlan" onchange="toggleCustomPlanButton()" />
-        <button id="createCustomPlanButton" onclick="createCustomOutreachPlan()" disabled>Create Custom Plan</button>
-      </div>
-    </div>
-
-    <!-- Step: Event Turnout -->
-    <div id="eventTurnoutSection" class="step">
-      <h2>Step 2: Event Turnout</h2>
-      <label for="eventTurnoutGoal">How many people do you want to turnout for your event?</label>
-      <input type="number" id="eventTurnoutGoal" min="1" />
-      <button onclick="calculateEventTurnout()">Calculate</button>
-
-      <div id="eventTurnoutResult"></div>
-    </div>
-
-    <!-- Output for Custom Plan -->
-    <div id="outreachPlanResult"></div>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

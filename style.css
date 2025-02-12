@@ -1,72 +1,105 @@
+/* General Layout */
 body {
   font-family: Arial, sans-serif;
-  background-color: #fff;
+  background-color: #f9f9f9;
   color: #333;
   margin: 0;
   padding: 0;
 }
 
 header {
-  background-color: #E60000; /* Citizen Action of NY Red */
-  color: white;
+  background-color: #E31C24; /* Red color for the organization */
   padding: 20px;
   text-align: center;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 2.5em;
 }
 
 .container {
-  margin: 20px;
-}
-
-.step {
-  margin: 20px 0;
+  padding: 20px;
+  width: 80%;
+  margin: 0 auto;
 }
 
 h2 {
   font-size: 1.8em;
-  margin-bottom: 10px;
+  color: #E31C24;
+  margin-bottom: 20px;
 }
 
 button {
-  background-color: #E60000;
+  background-color: #E31C24;
   color: white;
-  padding: 10px;
+  padding: 15px 25px;
+  font-size: 1.2em;
   border: none;
   cursor: pointer;
-  font-size: 1em;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #D50000;
+  background-color: #C00016;
 }
 
-input[type="number"], select {
+input, select {
   padding: 10px;
-  margin-top: 5px;
-  width: 50%;
-  font-size: 1em;
+  margin: 10px 0;
+  font-size: 1.2em;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
+input[type="number"] {
+  max-width: 300px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+/* Custom Page Layout */
+.page {
+  display: none;
+}
+
+#contactPeople, #eventTurnout, #customOutreach {
+  display: block;
+}
+
+.dropdown-container {
+  margin-top: 10px;
+}
+
+/* Checkboxes layout */
 input[type="checkbox"] {
   margin-right: 10px;
 }
 
-label {
-  font-size: 1.2em;
-}
-
-#contactPlanResult, #eventTurnoutResult, #outreachPlanResult {
-  margin-top: 20px;
-}
-
-#buildCustomPlan {
-  margin-top: 20px;
-}
-
-h3 {
+/* Larger font for suggested breakdown */
+#eventTurnoutResult {
   font-size: 1.5em;
+  line-height: 1.8;
   margin-top: 20px;
 }
 
-ul {
-  font-size: 1.2em;
+/* Adjust for small screens */
+@media (max-width: 768px) {
+  .container {
+      width: 100%;
+      padding: 10px;
+  }
+
+  h2 {
+      font-size: 1.4em;
+  }
+
+  button, input {
+      font-size: 1em;
+  }
 }
