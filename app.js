@@ -39,50 +39,18 @@ function calculateEventTurnout() {
   });
 
   document.getElementById("eventTurnoutResult").innerHTML = resultText;
+
+  // Show the Next Step button
+  document.getElementById("nextStepBtn").style.display = "block";
 }
 
-// Calculate the contact plan for a certain number of people
-function calculateContactPlan() {
-  const peopleToContact = parseInt(document.getElementById("peopleToContact").value);
-  const contactMethod = document.getElementById("contactMethod").value;
-
-  if (isNaN(peopleToContact) || peopleToContact <= 0) {
-      alert("Please enter a valid number of people.");
-      return;
-  }
-
-  // Default contact rates
-  const contactRates = {
-      phone: 0.2,
-      canvassing: 0.4,
-      tabling: 0.3,
-      streetCanvassing: 0.5
-  };
-
-  const contactRate = contactRates[contactMethod];
-
-  if (!contactRate) {
-      alert("Please select a valid contact method.");
-      return;
-  }
-
-  const peopleToContactWithRate = Math.ceil(peopleToContact / contactRate);
-  const hoursNeeded = Math.ceil(peopleToContactWithRate / 20); // 20 people per hour (example rate)
-
-  let resultText = `
-      <strong>Suggested Breakdown:</strong><br>
-      - ${capitalizeFirstLetter(contactMethod)}: ${peopleToContactWithRate} people (approx. ${hoursNeeded} hours of work)<br>
-  `;
-
-  document.getElementById("contactPlanResult").innerHTML = resultText;
+// Function to navigate to the next step for custom outreach
+function showCustomOutreach() {
+  document.getElementById("eventTurnout").style.display = "none";
+  document.getElementById("customOutreach").style.display = "block";
 }
 
-// Helper function to capitalize the first letter
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-// Generate a custom plan based on selected methods
+// Function to generate a custom outreach plan based on selected methods
 function generateCustomPlan() {
   const selectedMethods = [];
   if (document.getElementById("methodPhone").checked) selectedMethods.push("Phone");
@@ -101,4 +69,39 @@ function generateCustomPlan() {
   });
 
   document.getElementById("customPlanResult").innerHTML = resultText;
+}
+
+// Helper function to capitalize the first letter
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Calculate the contact plan for a certain number of people
+function calculateContactPlan() {
+  const peopleToContact = parseInt(document.getElementById("peopleToContact").value);
+  const contactMethods = Array.from(document.getElementById("contactMethod").selectedOptions).map(option => option.value);
+
+  if (isNaN(peopleToContact) || peopleToContact <= 0) {
+      alert("Please enter a valid number of people.");
+      return;
+  }
+
+  const contactRates = {
+      phone: 0.2,
+      canvassing: 0.4,
+      tabling: 0.3,
+      streetCanvassing: 0.5
+  };
+
+  let resultText = `<strong>Contact Plan:</strong><br>`;
+  let totalPeopleToContact = 0;
+  contactMethods.forEach(method => {
+      const contactRate = contactRates[method];
+      const peopleToContactWithRate = Math.ceil(peopleToContact / contactRate);
+      const hoursNeeded = Math.ceil(peopleToContactWithRate / 20);
+      resultText += `- ${capitalizeFirstLetter(method)}: ${peopleToContactWithRate} people (approx. ${hoursNeeded} hours)<br>`;
+      totalPeopleToContact += peopleToContactWithRate;
+  });
+
+  document.getElementById("contactPlanResult").innerHTML = resultText;
 }

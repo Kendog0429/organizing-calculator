@@ -27,6 +27,7 @@
             <input type="date" id="eventDate" required>
             <button class="btn" onclick="calculateEventTurnout()">Calculate Event Turnout</button>
             <div id="eventTurnoutResult"></div>
+            <button class="btn" id="nextStepBtn" style="display:none;" onclick="showCustomOutreach()">Next Step: Build Custom Outreach Plan</button>
         </div>
 
         <!-- Step 2: Contact a Set Number of People -->
@@ -35,7 +36,7 @@
             <input type="number" id="peopleToContact" placeholder="Enter number of people (e.g., 100)" required>
             <div class="dropdown-container">
                 <label for="contactMethod">Choose a contact method:</label>
-                <select id="contactMethod">
+                <select id="contactMethod" multiple>
                     <option value="phone">Phone</option>
                     <option value="canvassing">Canvassing</option>
                     <option value="tabling">Tabling</option>

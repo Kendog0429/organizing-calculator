@@ -81,6 +81,13 @@ input[type="checkbox"] {
   margin-right: 10px;
 }
 
+/* Larger font for suggested breakdown */
+#eventTurnoutResult {
+  font-size: 1.5em;
+  line-height: 1.8;
+  margin-top: 20px;
+}
+
 /* Adjust for small screens */
 @media (max-width: 768px) {
   .container {
