@@ -94,30 +94,8 @@ function calculateCustomPlan() {
     `;
   });
 
-  customBreakdown += `</ul><p>Total People to Contact: ${totalContacts} people</p>`;
+  customBreakdown += `</ul><p>Total People to Contact: ${totalContacts}</p>`;
   document.getElementById('outreachPlanResult').innerHTML = customBreakdown;
 }
 
-// Calculate Event Turnout based on RSVP goal
-function calculateEventTurnout() {
-  eventTurnoutGoal = document.getElementById('eventTurnoutGoal').value;
 
-  if (eventTurnoutGoal) {
-    let RSVPs = eventTurnoutGoal * 2; // Assuming 50% flake rate
-    let contactsNeeded = RSVPs;
-    let breakdown = `
-      <h3>Event Turnout Plan:</h3>
-      <p>You need to turnout ${eventTurnoutGoal} people for your event.</p>
-      <p>You need approximately ${RSVPs} RSVPs to reach that goal.</p>
-      <p>To account for the Organizer Math (50% flake rate), you will need to contact approximately ${contactsNeeded} people.</p>
-      <h3>Suggested Breakdown:</h3>
-      <ul>
-        <li>Phone: ${Math.ceil(contactsNeeded / contactRates.phone)} people</li>
-        <li>Canvassing: ${Math.ceil(contactsNeeded / contactRates.canvassing)} people</li>
-        <li>Tabling: ${Math.ceil(contactsNeeded / contactRates.tabling)} people</li>
-        <li>Street Canvassing: ${Math.ceil(contactsNeeded / contactRates.streetCanvassing)} people</li>
-      </ul>
-    `;
-    document.getElementById('eventTurnoutResult').innerHTML = breakdown;
-  }
-}
