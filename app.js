@@ -10,12 +10,6 @@ function showContactPeople() {
   document.getElementById("contactPeople").style.display = "block";
 }
 
-// Function to show the breakdown option page
-function showBreakdownOption() {
-  document.getElementById("eventTurnout").style.display = "none";
-  document.getElementById("breakdownOption").style.display = "block";
-}
-
 // Calculate the event turnout
 function calculateEventTurnout() {
   const eventGoal = parseInt(document.getElementById("eventGoal").value);
@@ -35,7 +29,7 @@ function calculateEventTurnout() {
       <strong>Event Turnout Plan:</strong><br>
       - You need to turnout ${eventGoal} people for your event on ${eventDate}.<br>
       - You need approximately ${rsvpsNeeded} RSVPs to reach that goal.<br>
-      - To account for the Organizer Math (50% flake rate), you will need to contact approximately ${rsvpsNeeded} people.<br>
+      - To account for the Organizer Math (50% flake rate), you will need approximately ${rsvpsNeeded} people.<br>
       <strong>Suggested Breakdown:</strong><br>
   `;
 
@@ -48,6 +42,12 @@ function calculateEventTurnout() {
 
   // Show the Next Step button
   document.getElementById("nextStepBtn").style.display = "block";
+}
+
+// Function to navigate to the next step for custom outreach
+function showCustomOutreach() {
+  document.getElementById("eventTurnout").style.display = "none";
+  document.getElementById("customOutreach").style.display = "block";
 }
 
 // Function to generate a custom outreach plan based on selected methods
@@ -80,27 +80,14 @@ function capitalizeFirstLetter(string) {
 function calculateContactPlan() {
   const peopleToContact = parseInt(document.getElementById("peopleToContact").value);
   const contactMethods = Array.from(document.getElementById("contactMethod").selectedOptions).map(option => option.value);
-
   if (isNaN(peopleToContact) || peopleToContact <= 0) {
-      alert("Please enter a valid number of people.");
+      alert("Please enter a valid number of people to contact.");
       return;
   }
 
-  const contactRates = {
-      phone: 0.2,
-      canvassing: 0.4,
-      tabling: 0.3,
-      streetCanvassing: 0.5
-  };
-
   let resultText = `<strong>Contact Plan:</strong><br>`;
-  let totalPeopleToContact = 0;
   contactMethods.forEach(method => {
-      const contactRate = contactRates[method];
-      const peopleToContactWithRate = Math.ceil(peopleToContact / contactRate);
-      const hoursNeeded = Math.ceil(peopleToContactWithRate / 20);
-      resultText += `- ${capitalizeFirstLetter(method)}: ${peopleToContactWithRate} people (approx. ${hoursNeeded} hours)<br>`;
-      totalPeopleToContact += peopleToContactWithRate;
+      resultText += `- ${capitalizeFirstLetter(method)}: You will need to contact approximately ${Math.ceil(peopleToContact / contactMethods.length)} people using this method.<br>`;
   });
 
   document.getElementById("contactPlanResult").innerHTML = resultText;

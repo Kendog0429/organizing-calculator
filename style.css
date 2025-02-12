@@ -1,131 +1,105 @@
-/* General Body and Layout */
+/* General Layout */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+  background-color: #f9f9f9;
   color: #333;
   margin: 0;
   padding: 0;
 }
 
-/* Header */
 header {
-  background-color: #2c3e50;
-  color: white;
-  padding: 20px 0;
-  text-align: center;
-  font-size: 2em;
-}
-
-/* Main container for layout */
-.container {
-  max-width: 900px;
-  margin: 20px auto;
+  background-color: #E31C24; /* Red color for the organization */
   padding: 20px;
-  background-color: white;
-  border-radius: 8px;
+  text-align: center;
+  color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Step 1 (Welcome and selection buttons) */
-#step1 {
-  text-align: center;
+h1 {
+  font-size: 2.5em;
+}
+
+.container {
+  padding: 20px;
+  width: 80%;
+  margin: 0 auto;
 }
 
 h2 {
-  color: #34495e;
-}
-
-p {
-  font-size: 1.2em;
+  font-size: 1.8em;
+  color: #E31C24;
+  margin-bottom: 20px;
 }
 
 button {
-  background-color: #3498db;
+  background-color: #E31C24;
   color: white;
+  padding: 15px 25px;
+  font-size: 1.2em;
   border: none;
-  padding: 12px 20px;
-  font-size: 1.1em;
-  margin: 10px 0;
   cursor: pointer;
   border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: #C00016;
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+input, select {
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 1.2em;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-/* Pages (Step 2) */
+input[type="number"] {
+  max-width: 300px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+/* Custom Page Layout */
 .page {
   display: none;
 }
 
-input[type="number"],
-input[type="date"],
-select {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1em;
+#contactPeople, #eventTurnout, #customOutreach {
+  display: block;
 }
 
-/* Step 2: Event Turnout */
-#eventTurnout input {
-  font-size: 1.1em;
-}
-
-#eventTurnoutResult {
-  background-color: #ecf0f1;
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 8px;
-}
-
-/* Custom Outreach Plan (Step 3) */
-#breakdownOption {
-  text-align: center;
-}
-
-#breakdownOption p {
-  font-size: 1.2em;
-  margin-bottom: 20px;
-}
-
-/* Result Text Styling */
-#eventTurnoutResult,
-#contactPlanResult,
-#customPlanResult {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #ecf0f1;
-  border-radius: 8px;
-}
-
-/* Dropdown container styling */
 .dropdown-container {
-  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
-/* Responsive design for smaller screens */
-@media screen and (max-width: 768px) {
+/* Checkboxes layout */
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Larger font for suggested breakdown */
+#eventTurnoutResult {
+  font-size: 1.8em; /* Increased from 1.5em */
+  line-height: 1.8;
+  margin-top: 20px;
+}
+
+/* Adjust for small screens */
+@media (max-width: 768px) {
   .container {
       width: 100%;
-      padding: 15px;
+      padding: 10px;
   }
 
-  button {
-      width: 100%;
-      padding: 15px;
-      font-size: 1em;
+  h2 {
+      font-size: 1.4em;
   }
 
-  input, select {
+  button, input {
       font-size: 1em;
   }
 }
