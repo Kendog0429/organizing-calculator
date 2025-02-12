@@ -12,40 +12,44 @@
   </header>
 
   <div class="container">
+    <!-- Step 1: Select what the user wants to do -->
     <div class="step">
       <label for="contactChoice">What would you like to do today?</label>
-      <select id="contactChoice">
+      <select id="contactChoice" onchange="toggleSections()">
         <option value="contactPeople">Contact a Certain Number of People</option>
         <option value="eventTurnout">Event Turnout</option>
       </select>
     </div>
 
+    <!-- Step: Contact a certain number of people -->
     <div id="contactPeopleSection" class="step">
       <h2>Step 1: Contact a Certain Number of People</h2>
       <label for="peopleToContact">How many people would you like to contact?</label>
       <input type="number" id="peopleToContact" min="1" />
-      <button id="calculateContact" onclick="calculateContactPlan()">Calculate</button>
+      <button onclick="calculateContactPlan()">Calculate</button>
       
       <div id="contactPlanResult"></div>
 
+      <!-- Optional Step: Build Custom Outreach Plan -->
       <div id="buildCustomPlan">
-        <label for="buildOutreachPlan">Would you like to build a custom outreach plan based on contact method?</label>
-        <input type="checkbox" id="buildOutreachPlan" />
+        <label for="buildOutreachPlan">Would you like to build a custom outreach plan based on contact methods?</label>
+        <input type="checkbox" id="buildOutreachPlan" onchange="toggleCustomPlanButton()" />
         <button id="createCustomPlanButton" onclick="createCustomOutreachPlan()" disabled>Create Custom Plan</button>
       </div>
     </div>
 
+    <!-- Step: Event Turnout -->
     <div id="eventTurnoutSection" class="step">
       <h2>Step 2: Event Turnout</h2>
       <label for="eventTurnoutGoal">How many people do you want to turnout for your event?</label>
       <input type="number" id="eventTurnoutGoal" min="1" />
-      <button id="calculateEventTurnout" onclick="calculateEventTurnout()">Calculate</button>
+      <button onclick="calculateEventTurnout()">Calculate</button>
 
       <div id="eventTurnoutResult"></div>
     </div>
 
+    <!-- Output for Custom Plan -->
     <div id="outreachPlanResult"></div>
-
   </div>
 
   <script src="script.js"></script>

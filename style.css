@@ -7,7 +7,7 @@ body {
 }
 
 header {
-  background-color: #E60000;
+  background-color: #E60000; /* Citizen Action of NY Red */
   color: white;
   padding: 20px;
   text-align: center;
@@ -22,7 +22,7 @@ header {
 }
 
 h2 {
-  font-size: 1.5em;
+  font-size: 1.8em;
   margin-bottom: 10px;
 }
 
@@ -60,4 +60,13 @@ label {
 
 #buildCustomPlan {
   margin-top: 20px;
+}
+
+h3 {
+  font-size: 1.5em;
+  margin-top: 20px;
+}
+
+ul {
+  font-size: 1.2em;
 }

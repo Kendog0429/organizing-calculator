@@ -1,13 +1,27 @@
+// Contact Rates (Based on your initial input)
 const contactRates = {
-  phone: 0.2,
-  canvassing: 0.3,
-  tabling: 0.4,
-  streetCanvassing: 0.25
+  phone: 0.2,       // 20% success rate for phone
+  canvassing: 0.3,  // 30% success rate for canvassing
+  tabling: 0.4,     // 40% success rate for tabling
+  streetCanvassing: 0.25  // 25% success rate for street canvassing
 };
 
 let peopleToContact = 0;
 let eventTurnoutGoal = 0;
 
+// Toggle visibility of sections based on user selection
+function toggleSections() {
+  const choice = document.getElementById('contactChoice').value;
+  if (choice === 'contactPeople') {
+    document.getElementById('contactPeopleSection').style.display = 'block';
+    document.getElementById('eventTurnoutSection').style.display = 'none';
+  } else {
+    document.getElementById('contactPeopleSection').style.display = 'none';
+    document.getElementById('eventTurnoutSection').style.display = 'block';
+  }
+}
+
+// Calculate the number of people to contact for a certain goal
 function calculateContactPlan() {
   peopleToContact = document.getElementById('peopleToContact').value;
 
@@ -17,6 +31,7 @@ function calculateContactPlan() {
   }
 }
 
+// Calculate the suggested breakdown of contact methods based on the number of people
 function calculateSuggestedBreakdown(people) {
   let phoneContacts = Math.ceil(people / contactRates.phone);
   let canvassingContacts = Math.ceil(people / contactRates.canvassing);
@@ -34,6 +49,13 @@ function calculateSuggestedBreakdown(people) {
   `;
 }
 
+// Enable or disable the "Create Custom Plan" button
+function toggleCustomPlanButton() {
+  const isChecked = document.getElementById('buildOutreachPlan').checked;
+  document.getElementById('createCustomPlanButton').disabled = !isChecked;
+}
+
+// Create a custom outreach plan based on selected methods
 function createCustomOutreachPlan() {
   const isChecked = document.getElementById('buildOutreachPlan').checked;
 
@@ -53,6 +75,7 @@ function createCustomOutreachPlan() {
   }
 }
 
+// Calculate the custom outreach plan based on selected methods
 function calculateCustomPlan() {
   const selectedMethods = [];
   if (document.getElementById('phoneMethod').checked) selectedMethods.push('phone');
@@ -75,11 +98,12 @@ function calculateCustomPlan() {
   document.getElementById('outreachPlanResult').innerHTML = customBreakdown;
 }
 
+// Calculate Event Turnout based on RSVP goal
 function calculateEventTurnout() {
   eventTurnoutGoal = document.getElementById('eventTurnoutGoal').value;
 
   if (eventTurnoutGoal) {
-    let RSVPs = eventTurnoutGoal * 2;
+    let RSVPs = eventTurnoutGoal * 2; // Assuming 50% flake rate
     let contactsNeeded = RSVPs;
     let breakdown = `
       <h3>Event Turnout Plan:</h3>
