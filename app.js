@@ -16,8 +16,8 @@ function calculateEventTurnout() {
   const eventDate = document.getElementById("eventDate").value;
 
   if (isNaN(eventGoal) || eventGoal <= 0) {
-      alert("Please enter a valid event turnout goal.");
-      return;
+    alert("Please enter a valid event turnout goal.");
+    return;
   }
 
   // RSVP calculation (need to collect double the RSVPs to account for the flake rate)
@@ -38,7 +38,9 @@ function calculateEventTurnout() {
       resultText += `- ${capitalizeFirstLetter(method)}: ${Math.ceil(rsvpsNeeded / 4)} people (approx. 1 hour)<br>`;
   });
 
+  // Larger font for breakdown
   document.getElementById("eventTurnoutResult").innerHTML = resultText;
+  document.getElementById("eventTurnoutResult").style.fontSize = "1.5em";
 
   // Show the Next Step button
   document.getElementById("nextStepBtn").style.display = "block";
@@ -59,50 +61,49 @@ function generateCustomPlan() {
   if (document.getElementById("methodStreet").checked) selectedMethods.push("Street Canvassing");
 
   if (selectedMethods.length === 0) {
-      alert("Please select at least one contact method.");
-      return;
+    alert("Please select at least one contact method.");
+    return;
   }
 
   let resultText = `<strong>Custom Outreach Plan:</strong><br>`;
   selectedMethods.forEach(method => {
-      resultText += `- ${method}: You can use this method to reach out to people.<br>`;
+    resultText += `- ${method}: You can use this method to reach out to people.<br>`;
   });
 
   document.getElementById("customPlanResult").innerHTML = resultText;
+}
+
+// Function to calculate the contact plan for a certain number of people
+function calculateContactPlan() {
+  const peopleToContact = parseInt(document.getElementById("peopleToContact").value);
+  const contactMethods = Array.from(document.getElementById("contactMethod").selectedOptions).map(option => option.value);
+
+  if (isNaN(peopleToContact) || peopleToContact <= 0) {
+    alert("Please enter a valid number of people.");
+    return;
+  }
+
+  const contactRates = {
+    phone: 0.2,
+    canvassing: 0.4,
+    tabling: 0.3,
+    streetCanvassing: 0.5
+  };
+
+  let resultText = `<strong>Contact Plan:</strong><br>`;
+  let totalPeopleToContact = 0;
+  contactMethods.forEach(method => {
+    const contactRate = contactRates[method];
+    const peopleToContactWithRate = Math.ceil(peopleToContact / contactRate);
+    const hoursNeeded = Math.ceil(peopleToContactWithRate / 20);
+    resultText += `- ${capitalizeFirstLetter(method)}: ${peopleToContactWithRate} people (approx. ${hoursNeeded} hours)<br>`;
+    totalPeopleToContact += peopleToContactWithRate;
+  });
+
+  document.getElementById("contactPlanResult").innerHTML = resultText;
 }
 
 // Helper function to capitalize the first letter
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
-
-// Calculate the contact plan for a certain number of people
-function calculateContactPlan() {
-  const peopleToContact = parseInt(document.getElementById("peopleToContact").value);
-  const contactMethods = Array.from(document.getElementById("contactMethod").selectedOptions).map(option => option.value);
-
-  if (isNaN(peopleToContact) || peopleToContact <= 0) {
-      alert("Please enter a valid number of people.");
-      return;
-  }
-
-  const contactRates = {
-      phone: 0.2,
-      canvassing: 0.4,
-      tabling: 0.3,
-      streetCanvassing: 0.5
-  };
-
-  let resultText = `<strong>Contact Plan:</strong><br>`;
-  let totalPeopleToContact = 0;
-  contactMethods.forEach(method => {
-      const contactRate = contactRates[method];
-      const peopleToContactWithRate = Math.ceil(peopleToContact / contactRate);
-      const hoursNeeded = Math.ceil(peopleToContactWithRate / 20);
-      resultText += `- ${capitalizeFirstLetter(method)}: ${peopleToContactWithRate} people (approx. ${hoursNeeded} hours)<br>`;
-      totalPeopleToContact += peopleToContactWithRate;
-  });
-
-  document.getElementById("contactPlanResult").innerHTML = resultText;
-}
-
