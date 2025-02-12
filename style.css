@@ -1,105 +1,63 @@
-/* General Layout */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+  background-color: #fff;
   color: #333;
   margin: 0;
   padding: 0;
 }
 
 header {
-  background-color: #E31C24; /* Red color for the organization */
+  background-color: #E60000;
+  color: white;
   padding: 20px;
   text-align: center;
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  font-size: 2.5em;
 }
 
 .container {
-  padding: 20px;
-  width: 80%;
-  margin: 0 auto;
+  margin: 20px;
+}
+
+.step {
+  margin: 20px 0;
 }
 
 h2 {
-  font-size: 1.8em;
-  color: #E31C24;
-  margin-bottom: 20px;
+  font-size: 1.5em;
+  margin-bottom: 10px;
 }
 
 button {
-  background-color: #E31C24;
+  background-color: #E60000;
   color: white;
-  padding: 15px 25px;
-  font-size: 1.2em;
+  padding: 10px;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  font-size: 1em;
 }
 
 button:hover {
-  background-color: #C00016;
+  background-color: #D50000;
 }
 
-input, select {
+input[type="number"], select {
   padding: 10px;
-  margin: 10px 0;
-  font-size: 1.2em;
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  margin-top: 5px;
+  width: 50%;
+  font-size: 1em;
 }
 
-input[type="number"] {
-  max-width: 300px;
-}
-
-strong {
-  font-weight: bold;
-}
-
-/* Custom Page Layout */
-.page {
-  display: none;
-}
-
-#contactPeople, #eventTurnout, #customOutreach {
-  display: block;
-}
-
-.dropdown-container {
-  margin-top: 10px;
-}
-
-/* Checkboxes layout */
 input[type="checkbox"] {
   margin-right: 10px;
 }
 
-/* Larger font for suggested breakdown */
-#eventTurnoutResult {
-  font-size: 1.5em;
-  line-height: 1.8;
+label {
+  font-size: 1.2em;
+}
+
+#contactPlanResult, #eventTurnoutResult, #outreachPlanResult {
   margin-top: 20px;
 }
 
-/* Adjust for small screens */
-@media (max-width: 768px) {
-  .container {
-      width: 100%;
-      padding: 10px;
-  }
-
-  h2 {
-      font-size: 1.4em;
-  }
-
-  button, input {
-      font-size: 1em;
-  }
+#buildCustomPlan {
+  margin-top: 20px;
 }
